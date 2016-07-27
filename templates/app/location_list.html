@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  #map-canvas {
+    height: 500px;
+    width: 600px
+    }
+</style>
+    </head>
+
+    <body>
+        <h1>{{request.user.profile.football}} Fans</h1>
+        <dl>
+          <!--
+            {% for item in object_list %}
+                <dt>{{ item.user }}: </dt>
+                <dd>Football: {{ item.user.profile.football }}</dd>
+                <dd>Basketball: {{ item.user.profile.basketball }}</dd>
+            {% endfor %}
+          -->
+        </dl>
+
+        <div id="map-canvas"></div>
+
+        <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
+        <script>
+            function initialize() {
+                var map = new google.maps.Map(document.getElementById('map-canvas'));
+                var bounds = new google.maps.LatLngBounds();
+                function addMarker(lat, lng, title) {
+                    var position = new google.maps.LatLng(lat, lng);
+                    var marker = new google.maps.Marker({
+                        position: position,
+                        map: map,
+                        title: title
+                  });
+
+                    map.addListener('center_changed', function() {
+                    // 3 seconds after the center of the map has changed, pan back to the
+                    // marker.
+                    window.setTimeout(function() {
+                      map.panTo(marker.getPosition());
+                    }, 3000);
+                  });
+
+                    bounds.extend(position);
+
+                    marker.addListener('click', function() {
+                    map.setZoom(12);
+                    map.setCenter(marker.getPosition());
+                    });
+                }
+                {% for item in object_list %}
+                    addMarker({{ item.location.latitude }}, {{ item.location.longitude }}, "{{ poi.name }}");
+                {% endfor %}
+                map.fitBounds(bounds);
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+    </body>
+</html>
+<br><br>
+{% endblock %}

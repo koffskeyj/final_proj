@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<br>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<form class="map" method="POST">{% csrf_token %}
+    {{ form.as_table }}
+    {{ form.media }}
+  <input class="btn btn-primary" type="submit" name="" value="Check In">
+  <br><br>
+</form>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+  <form class="" action="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <table>
+        <tr>
+          <td>
+            Username: {{ form.username }} <br><br>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Password: {{ form.password }} <br><br>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <input class="btn btn-primary" type="submit" name="submit" value="Login">
+  </form>
+</body>
+{% endblock %}
