@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
-from app.models import Location
+from django.db.models import Count
+from app.models import Location, CheckIn
 from app.forms import ChoosePlaceForm
 from googleplaces import GooglePlaces, types, lang
 from geoposition import Geoposition
@@ -36,9 +37,9 @@ def get_places_view(request):
         if form.is_valid():
             location_name = form.cleaned_data['location_name']
             location_city = form.cleaned_data['location_city']
-            # instance = form.save(commit=False)
-            # instance.user = request.user
-            # instance.save()
+            #instance = form.save(commit=False)
+            #instance.user = request.user
+            #instance.save()
             if location_name != '':
                 query_result = google_places.text_search(
                 query=location_name, location=location_city,
@@ -58,7 +59,7 @@ def get_places_view(request):
         return render(request, 'choose_place.html', {'form': form})
 
 class CheckInCreateView(LoginRequiredMixin, CreateView):
-    model = Location
+    model = CheckIn
     fields = ["location"]
     success_url = "/choose_place"
 
@@ -74,8 +75,8 @@ class CheckInCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         place = form.save(commit=False)
-        place.location_name = self.request.GET.get("name")
-        place.location_city = self.request.GET.get("city")
+        #place.location_name = self.request.GET.get("name")
+        #place.location_city = self.request.GET.get("city")
         place.user = self.request.user
         return super().form_valid(form)
 

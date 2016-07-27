@@ -65,6 +65,6 @@ input[type="search"]{
 
 }
 
-.geoposition-search {
-
+#places {
+  padding-top: 100px;
 }
