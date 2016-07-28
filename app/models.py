@@ -37,13 +37,14 @@ class Profile(models.Model):
 class Location(models.Model):
     location_name = models.CharField(max_length=50, null=True, blank=True)
     location_city = models.CharField(max_length=50, null=True, blank=True)
+    geolocation = GeopositionField(null=True, blank=True)
 
 
 class CheckIn(models.Model):
     checkin_user = models.ForeignKey(User)
     checkin_location = models.ForeignKey(Location)
     created = models.DateTimeField(auto_now_add=True)
-    geolocation = GeopositionField(null=True, blank=True)
+
 
 
 @receiver(post_save, sender="auth.User")

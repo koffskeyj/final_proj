@@ -37,7 +37,7 @@
                     bounds.extend(position);
                 }
                 {% for item in object_list %}
-                    addMarker({{ item.location.latitude }}, {{ item.location.longitude }}, "{{ poi.name }}");
+                    addMarker({{ item.checkin_location.geolocation.latitude }}, {{ item.checkin_location.geolocation.longitude }}, "{{ poi.name }}");
                 {% endfor %}
                 map.fitBounds(bounds);
             }
@@ -46,7 +46,7 @@
       </div>
       <div id="places" class="col-md-4">
         {% for item in object_list %}
-          <h4>{{ item.location_name}}<br></h4>
+          <h4>{{ item.checkin_location.location_name}}<br></h4>
         {% endfor %}
       </div>
     </body>

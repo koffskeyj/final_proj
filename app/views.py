@@ -60,26 +60,30 @@ def get_places_view(request):
 
 class CheckInCreateView(LoginRequiredMixin, CreateView):
     model = CheckIn
-    fields = ["location"]
+    fields = []
     success_url = "/choose_place"
 
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         from geoposition import Geoposition
 
         context = super().get_context_data()
         lat = self.request.GET.get("lat")
         lng = self.request.GET.get("lng")
 
-        context["form"].fields["location"].initial = Geoposition(lat, lng)
+        # context["form"].fields["checkin_location"].initial = Geoposition(lat, lng)
         return context
 
     def form_valid(self, form):
-        place = form.save(commit=False)
-        #place.location_name = self.request.GET.get("name")
-        #place.location_city = self.request.GET.get("city")
-        place.user = self.request.user
+        checkin = form.save(commit=False)
+        checkin.checkin_user = self.request.user
+        lat = self.request.GET.get("lat")
+        lng = self.request.GET.get("lng")
+        name = self.request.GET.get("name")
+        city = self.request.GET.get("city")
+        checkin.checkin_location, _ = Location.objects.get_or_create(location_name=name, location_city=city, geolocation=Geoposition(lat,lng))
+        #checkin.save()
         return super().form_valid(form)
 
 class CheckInListView(ListView):
     def get_queryset(self):
-        return Location.objects.filter(user__profile__basketball=self.request.user.profile.basketball).filter(user__profile__football=self.request.user.profile.football)
+        return CheckIn.objects.filter(checkin_user__profile__basketball=self.request.user.profile.basketball).filter(checkin_user__profile__football=self.request.user.profile.football)
