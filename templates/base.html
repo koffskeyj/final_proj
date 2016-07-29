@@ -7,7 +7,7 @@
     <link rel="stylesheet" href='{% static "app/css/app.css" %}' media="screen" title="bootstrap" charset="utf-8">
       {% if request.user.is_anonymous %}
       <nav class="navbar navbar-default">
-            <a class="navbar-brand" href="#">Sport Check In</a>
+            <a class="navbar-brand" href="#">Fanatical</a>
       <ul class="nav navbar-nav">
         <li><a href="{% url 'login' %}" role="button">Login</a></li>
         <li><a href="{% url 'user_create_view' %}" role="button">Create User</a></li>
@@ -15,11 +15,11 @@
       {% endif %}
       {% if request.user.is_authenticated %}
       <nav class="navbar navbar-default">
-            <a class="navbar-brand" href="#">Sport Check In</a>
+            <a class="navbar-brand" href="#">Fanatical</a>
       <ul class="nav navbar-nav">
         <li><a href="{% url 'profile_update_view' %}" role="button">Profile</a></li>
         <li><a href="{% url 'get_places_view' %}">Choose a Spot</a></li>
-        <li><a href="{% url 'check_in_list_view' %}">Your Fans</a></li>
+        <li><a href="{% url 'location_list_view' %}">Hot Spots</a></li>
         <li id="right"><a href="{% url 'logout' %}?next=/" role="button">Logout {{ request.user }}</a></li>
       </nav>
       {% endif %}

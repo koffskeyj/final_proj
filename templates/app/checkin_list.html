@@ -1,55 +1,55 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="col-md-6">
 <style>
   #map-canvas {
-    height: 500px;
-    width: 600px
+    height: 250px;
+    width: 350px;
     }
 </style>
-    </head>
-    <body>
-      <div class="col-md-8">
-        <h1>{{request.user.profile.football}} Fans</h1>
-        <dl>
-          <!--
-            {% for item in object_list %}
-                <dt>{{ item.user }}: </dt>
-                <dd>Football: {{ item.user.profile.football }}</dd>
-                <dd>Basketball: {{ item.user.profile.basketball }}</dd>
-            {% endfor %}
-          -->
-        </dl>
-
-        <div id="map-canvas"></div>
-
-        <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
-        <script>
-            function initialize() {
-                var map = new google.maps.Map(document.getElementById('map-canvas'));
-                var bounds = new google.maps.LatLngBounds();
-                function addMarker(lat, lng, title) {
-                    var position = new google.maps.LatLng(lat, lng);
-                    var marker = new google.maps.Marker({
-                        position: position,
-                        map: map,
-                        title: title
-                    });
-                    bounds.extend(position);
-                }
-                {% for item in object_list %}
-                    addMarker({{ item.checkin_location.geolocation.latitude }}, {{ item.checkin_location.geolocation.longitude }}, "{{ poi.name }}");
-                {% endfor %}
-                map.fitBounds(bounds);
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
-        </script>
-      </div>
-      <div id="places" class="col-md-4">
-        {% for item in object_list %}
-          <h4>{{ item.checkin_location.location_name}}<br></h4>
-        {% endfor %}
-      </div>
-    </body>
-</html>
-<br><br>
+  <div id="map-canvas"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
+  <script>
+      function initialize() {
+          var map = new google.maps.Map(document.getElementById('map-canvas'));
+          var bounds = new google.maps.LatLngBounds();
+          function addMarker(lat, lng, title) {
+              var position = new google.maps.LatLng(lat, lng);
+              var marker = new google.maps.Marker({
+                  position: position,
+                  map: map,
+                  title: title
+              });
+              bounds.extend(position);
+              map.setCenter(position);
+              map.setZoom(17);
+          }
+          {% for checkin in object_list %}
+              addMarker({{ checkin.checkin_location.geolocation.latitude }}, {{ checkin.checkin_location.geolocation.longitude }}, "{{ location.location_name }}");
+          {% endfor %}
+          bounds.extend(position);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+  {{ location.location_address }}
+</div>
+<div class="col-md-6">
+  <h1>Reppin'</h1>
+  {% for team in teams %}
+  <a href="{% url 'checkin_details_list_view' %}"><h4>{{team.school}}</h4></a>
+    {% for profile in team.profile_set.all %}
+      {% if profile.user.id in users_pk %}
+        {{ profile.user }} <br>
+      {% endif %}
+      <!--
+      if profile user pk is in users_pk show it
+    -->
+    {% endfor %}
+  {% endfor %}
+  <!--
+  {% for checkin in object_list %}
+  <a href="{% url 'checkin_details_list_view' %}">{{ checkin.checkin_user.profile.football }}</a><br>
+  {% endfor %}
+-->
+</div>
 {% endblock %}

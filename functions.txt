@@ -29,3 +29,4 @@ class Migration(migrations.Migration):
         migrations.RunPython(add_basketball_teams),
         migrations.RunPython(add_football_teams)
     ]
+checkin.checkin_location, _ = Location.objects.get_or_create(location_name=name, location_city=city, geolocation=Geoposition(lat,lng))

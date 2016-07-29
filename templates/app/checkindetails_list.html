@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Fans</h1>
+  {% for profile in team.profile_set.all %}
+    {% if profile.user.id in users_pk %}
+      {{ profile.user }} <br>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
