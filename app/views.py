@@ -25,7 +25,7 @@ class UserCreateView(CreateView):
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("profile_update_view")
-    fields = ["bio", "basketball", "football"]
+    fields = ["bio", "basketball", "football", "zipcode"]
 
     def get_object(self, queryset=None):
         return self.request.user.profile
@@ -116,10 +116,10 @@ class CheckInDetailsListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["teams"] = FootballTeam.objects.filter(pk__in=set(self.get_queryset().values_list("checkin_user__profile__football", flat=True)))
-        context["users_pk"] = self.get_queryset().values_list("checkin_user__pk", flat=True)
+        context["users"] = self.get_queryset().values_list("checkin_user__username", flat=True).distinct()
         return context
 
     def get_queryset(self):
         location = self.kwargs.get('pk', None)
-        return CheckIn.objects.filter(checkin_location_id=location)
+        team = self.request.GET.get("team")
+        return CheckIn.objects.filter(checkin_location_id=location, checkin_user__profile__football__school=team)

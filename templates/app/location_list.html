@@ -9,7 +9,7 @@
     </head>
     <body>
       <div class="col-md-6">
-        <h1>{{request.user.profile.football}}</h1>
+        <h1>{{request.user.profile.football}} Spots</h1>
         <dl>
           <!--
             {% for item in object_list %}
@@ -46,7 +46,7 @@
       </div>
       <div id="places" class="col-md-6">
         {% for location in object_list %}
-          <a href="{% url 'checkin_list_view' location.pk %}?address={{ address.0 }}"><h4>{{ location.location_name }}<br></h4></a>
+          <a href="{% url 'checkin_list_view' location.pk %}"><h4>{{ location.location_name }}<br></h4></a>
         {% endfor %}
       </div>
     </body>

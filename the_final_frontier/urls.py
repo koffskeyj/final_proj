@@ -27,5 +27,5 @@ urlpatterns = [
     url(r'^checkin/$', CheckInCreateView.as_view(), name='check_in_create_view'),
     url(r'^hot_spots/$', LocationListView.as_view(), name='location_list_view'),
     url(r'^location/(?P<pk>\d+)/checkins/$', CheckInListView.as_view(), name='checkin_list_view'),
-    url(r'^checkin_details/$', CheckInDetailsListView.as_view(), name='checkin_details_list_view')
+    url(r'^location/(?P<pk>\d+)/checkins/checkin_details/$', CheckInDetailsListView.as_view(), name='checkin_details_list_view')
 ]

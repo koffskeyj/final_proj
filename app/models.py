@@ -32,6 +32,7 @@ class Profile(models.Model):
     bio = models.TextField(null=True, blank=True)
     basketball = models.ForeignKey(BasketballTeam, null=True, blank=True)
     football = models.ForeignKey(FootballTeam, null=True, blank=True)
+    zipcode = models.IntegerField(null=True, blank=True)
 
 
 class Location(models.Model):

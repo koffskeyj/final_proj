@@ -36,19 +36,18 @@
 <div class="col-md-6">
   <h1>Reppin'</h1>
   {% for team in teams %}
-  <a href="{% url 'checkin_details_list_view' %}"><h4>{{team.school}}</h4></a>
+  <a href="{% url 'checkin_details_list_view' location.pk %}?team={{ team.school }}"><h4>{{ team.school }}</h4></a>
+  <!--
     {% for profile in team.profile_set.all %}
       {% if profile.user.id in users_pk %}
         {{ profile.user }} <br>
       {% endif %}
-      <!--
-      if profile user pk is in users_pk show it
-    -->
     {% endfor %}
+  -->
   {% endfor %}
   <!--
   {% for checkin in object_list %}
-  <a href="{% url 'checkin_details_list_view' %}">{{ checkin.checkin_user.profile.football }}</a><br>
+  <a href="{% url 'checkin_details_list_view' checkin.pk %}">{{ checkin.checkin_user.profile.football }}</a><br>
   {% endfor %}
 -->
 </div>
