@@ -87,6 +87,12 @@ class CheckInCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 class LocationListView(ListView):
+
+    def get_context_data(self):
+        context = super().get_context_data()
+        context["lat"] = self.request.GET.get("lat")
+        return context
+
     def get_queryset(self):
         return Location.objects.filter(checkin__checkin_user__profile__basketball=self.request.user.profile.basketball).filter(checkin__checkin_user__profile__football=self.request.user.profile.football).distinct()
 

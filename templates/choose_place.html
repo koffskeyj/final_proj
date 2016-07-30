@@ -19,16 +19,18 @@
     </tr>
   </table>
   <div class="center">
-    <input class="btn btn-primary" align="center" type="submit" name="" value="Find Places"><br>
+    <input class="button" align="center" type="submit" name="" value="Find Places"><br>
   </div>
 </form>
 <br>
 <div class="center">
-  {{ places|first }} <br><br>
+  <h3>{{ places|first }}</h3> <br>
 </div>
+<ul class="list-group">
 {% for address in addresses %}
 <div class="center">
-  <a href="{% url 'check_in_create_view' %}?lat={{ address.1.lat }}&lng={{ address.1.lng }}&name={{ places|first }}&city={{ location }}&address={{ address.0 }}">{{ address.0 }}</a> <br>
+    <a href="{% url 'check_in_create_view' %}?lat={{ address.1.lat }}&lng={{ address.1.lng }}&name={{ places|first }}&city={{ location }}&address={{ address.0 }}"><li class="list-group-item">{{ address.0 }}</a></li>
+    {% endfor %}
 </div>
-{% endfor %}
+</ul>
 {% endblock %}

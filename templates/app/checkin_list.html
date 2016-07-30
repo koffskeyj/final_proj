@@ -3,8 +3,8 @@
 <div class="col-md-6">
 <style>
   #map-canvas {
-    height: 250px;
-    width: 350px;
+    height: 300px;
+    width: 425px;
     }
 </style>
   <div id="map-canvas"></div>
@@ -35,17 +35,24 @@
   {{ location.location_address }}
 </div>
 <div class="col-md-6">
-  <h1>Reppin'</h1>
-  {% for team in teams %}
-  <a href="{% url 'checkin_details_list_view' location.pk %}?team={{ team.school }}"><h4>{{ team.school }}</h4></a>
-  <!--
-    {% for profile in team.profile_set.all %}
-      {% if profile.user.id in users_pk %}
-        {{ profile.user }} <br>
-      {% endif %}
+  <div class="center">
+    <h1>Reppin'</h1>
+  </div>
+  <ul class="list-group">
+      {% for team in teams %}
+    <div class="center">
+      <li class="list-group-item"><a href="{% url 'checkin_details_list_view' location.pk %}?team={{ team.school }}"><h6>{{ team.school }}</h6></a></li>
+    </div>
+    <!--
+      {% for profile in team.profile_set.all %}
+        {% if profile.user.id in users_pk %}
+          {{ profile.user }} <br>
+        {% endif %}
+      {% endfor %}
+    -->
     {% endfor %}
-  -->
-  {% endfor %}
+  </ul>
+
   <!--
   {% for checkin in object_list %}
   <a href="{% url 'checkin_details_list_view' checkin.pk %}">{{ checkin.checkin_user.profile.football }}</a><br>
