@@ -27,12 +27,20 @@ class FootballTeam(models.Model):
         ordering = ["school"]
 
 
+class State(models.Model):
+    state_name = models.CharField(max_length=2)
+
+    def __str__(self):
+        return self.state_name
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User)
     bio = models.TextField(null=True, blank=True)
     basketball = models.ForeignKey(BasketballTeam, null=True, blank=True)
     football = models.ForeignKey(FootballTeam, null=True, blank=True)
-    zipcode = models.IntegerField(null=True, blank=True)
+    city = models.CharField(max_length=50, null=True, blank=True)
+    state = models.ForeignKey(State, null=True, blank=True)
 
 
 class Location(models.Model):

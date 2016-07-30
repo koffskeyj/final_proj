@@ -27,6 +27,7 @@
             function initialize() {
                 var map = new google.maps.Map(document.getElementById('map-canvas'));
                 var bounds = new google.maps.LatLngBounds();
+                var geocoder = new google.maps.Geocoder();
                 function addMarker(lat, lng, title) {
                     var position = new google.maps.LatLng(lat, lng);
                     var marker = new google.maps.Marker({
@@ -36,6 +37,16 @@
                     });
                     bounds.extend(position);
                 }
+
+                var state = "{{ request.user.profile.city }}, {{ request.user.profile.state }}";
+                var geocoder;
+                geocoder.geocode( {'address' : state}, function(results, status) {
+                  if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    map.setZoom(10)
+                  }
+                });
+
                 {% for item in object_list %}
                     addMarker({{ item.geolocation.latitude }}, {{ item.geolocation.longitude }}, "{{ poi.name }}");
                 {% endfor %}

@@ -23,6 +23,7 @@
               bounds.extend(position);
               map.setCenter(position);
               map.setZoom(17);
+
           }
           {% for checkin in object_list %}
               addMarker({{ checkin.checkin_location.geolocation.latitude }}, {{ checkin.checkin_location.geolocation.longitude }}, "{{ location.location_name }}");

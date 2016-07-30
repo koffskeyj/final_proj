@@ -25,7 +25,7 @@ class UserCreateView(CreateView):
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("profile_update_view")
-    fields = ["bio", "basketball", "football", "zipcode"]
+    fields = ["bio", "basketball", "football", "city", "state"]
 
     def get_object(self, queryset=None):
         return self.request.user.profile
