@@ -41,6 +41,7 @@ class Profile(models.Model):
     football = models.ForeignKey(FootballTeam, null=True, blank=True)
     city = models.CharField(max_length=50, null=True, blank=True)
     state = models.ForeignKey(State, null=True, blank=True)
+    photo = models.ImageField(upload_to="profile_photos", null=True, blank=True, verbose_name="Profile Photo")
 
 
 class Location(models.Model):
@@ -54,6 +55,13 @@ class CheckIn(models.Model):
     checkin_user = models.ForeignKey(User)
     checkin_location = models.ForeignKey(Location)
     created = models.DateTimeField(auto_now_add=True)
+
+
+class Comment(models.Model):
+    body = models.CharField(max_length=200)
+    created = models.DateTimeField(auto_now_add=True)
+    comment_user = models.ForeignKey(User)
+    comment_location = models.ForeignKey(Location)
 
 
 @receiver(post_save, sender="auth.User")

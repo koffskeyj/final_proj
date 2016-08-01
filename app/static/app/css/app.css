@@ -81,6 +81,16 @@ body {
   font-size: 30px;
 }
 
+#id_city {
+  width: 600px;
+  font-size: 30px;
+}
+
+#id_state {
+  -webkit-appearance: menulist-button;
+  width: 300px;
+  font-size: 30px;
+}
 input[type="submit"] {
   width: 250px;
   font-size: 25px;

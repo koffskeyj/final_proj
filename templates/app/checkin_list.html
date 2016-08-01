@@ -32,6 +32,7 @@
       }
       google.maps.event.addDomListener(window, 'load', initialize);
   </script>
+  <br>
   {{ location.location_address }}
 </div>
 <div class="col-md-6">
@@ -43,7 +44,7 @@
     <div class="center">
       <li class="list-group-item"><a href="{% url 'checkin_details_list_view' location.pk %}?team={{ team.school }}"><h6>{{ team.school }}</h6></a></li>
     </div>
-    <!--
+<!--
       {% for profile in team.profile_set.all %}
         {% if profile.user.id in users_pk %}
           {{ profile.user }} <br>
