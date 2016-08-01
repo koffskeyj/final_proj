@@ -111,7 +111,10 @@ class LocationListView(ListView):
 
 class CheckInListView(ListView):
     model = CheckIn
+    fields = ["body"]
     template_name= "app/checkin_list.html"
+    success_url = reverse_lazy("checkin_list_view")
+
 
     def get_context_data(self, **kwargs):
         teams_list = []

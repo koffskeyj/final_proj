@@ -48,6 +48,7 @@ class Location(models.Model):
     location_name = models.CharField(max_length=50, null=True, blank=True)
     location_city = models.CharField(max_length=50, null=True, blank=True)
     location_address = models.CharField(max_length=50, null=True, blank=True)
+    location_zip = models.CharField(max_length=10, null=True, blank=True)
     geolocation = GeopositionField(null=True, blank=True)
 
 
@@ -55,13 +56,8 @@ class CheckIn(models.Model):
     checkin_user = models.ForeignKey(User)
     checkin_location = models.ForeignKey(Location)
     created = models.DateTimeField(auto_now_add=True)
+    body = models.CharField(max_length=200, null=True, blank=True)
 
-
-class Comment(models.Model):
-    body = models.CharField(max_length=200)
-    created = models.DateTimeField(auto_now_add=True)
-    comment_user = models.ForeignKey(User)
-    comment_location = models.ForeignKey(Location)
 
 
 @receiver(post_save, sender="auth.User")

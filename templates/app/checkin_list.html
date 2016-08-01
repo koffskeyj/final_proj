@@ -41,7 +41,7 @@
       <div class="panel-heading">
         <h1>Reppin'</h1>
       </div>
-      <ul class="list-group">
+  <ul class="list-group"
     <div class="center">
       {% for team in teams %}
       <li class="list-group-item"><a href="{% url 'checkin_details_list_view' location.pk %}?team={{ team.school }}"><h6>{{ team.school }}</h6></a></li>

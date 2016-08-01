@@ -110,7 +110,6 @@ input[type="submit"] {
 
 input[type="search"]{
   width: 200px;
-
 }
 
 # #places {
@@ -128,7 +127,7 @@ form {
   margin: 500;
 }
 
-.panel > .panel-heading {
+.panel .panel-heading {
   background-color: indigo;
   color: white;
   height: 70px;
@@ -142,6 +141,11 @@ form {
 }
 
 .list-group-item {
+  position: relative;
+  display: block;
+  padding: 0px 10px;
+  margin-bottom: -1px;
+  line-height: 1em;
   border: 1px solid black;
 }
 
