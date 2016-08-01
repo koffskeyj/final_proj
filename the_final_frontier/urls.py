@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
 from app.views import IndexView, UserCreateView, ProfileUpdateView, CheckInCreateView, LocationListView, CheckInListView, CheckInDetailsListView, get_places_view
 
 urlpatterns = [
@@ -28,4 +30,4 @@ urlpatterns = [
     url(r'^hot_spots/$', LocationListView.as_view(), name='location_list_view'),
     url(r'^location/(?P<pk>\d+)/checkins/$', CheckInListView.as_view(), name='checkin_list_view'),
     url(r'^location/(?P<pk>\d+)/checkins/checkin_details/$', CheckInDetailsListView.as_view(), name='checkin_details_list_view')
-]
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

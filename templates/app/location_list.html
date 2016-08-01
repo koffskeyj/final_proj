@@ -53,17 +53,18 @@
       </div>
       <div id="places" class="col-md-6">
         <div class="center">
-          <h1>{{request.user.profile.football}} Spots</h1>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h1>{{request.user.profile.football}} Spots</h1>
+            </div>
+            <ul class="list-group">
+              {% for location in object_list %}
+              <li class="list-group-item"><a href="{% url 'checkin_list_view' location.pk %}"><h6>{{ location.location_name }}</h6></a></li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
-        <ul class="list-group">
-        {% for location in object_list %}
-        <div class="center">
-          <li class="list-group-item"><a href="{% url 'checkin_list_view' location.pk %}"><h6>{{ location.location_name }}</h6></a></li>
-        </div>
-        {% endfor %}
       </div>
-      {% for item in location %}
-      {% endfor %}
     </body>
 </html>
 <br><br>

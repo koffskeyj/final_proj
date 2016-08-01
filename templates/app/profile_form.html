@@ -3,9 +3,10 @@
 <h1 class="center">Hello {{ request.user }}!</h1>
 <form class="" action="" method="post">
 {% csrf_token %}
+  <h2>Photo:</h2> {{ form.photo }} <br><br>
+  <h2>Bio:</h2> {{ form.bio }}<br><br>
   <h2>Basketball:</h2> {{ form.basketball }}<br><br>
   <h2>Football:</h2> {{ form.football }}<br><br>
-  <h2>Bio:</h2> {{ form.bio }}<br><br>
   <h2>City:</h2> {{ form.city }} <br><br>
   <h2>State:</h2> {{ form.state }} <br><br><br>
 <input class="button" type="submit" name="name" value="Update Profile"> <br><br>

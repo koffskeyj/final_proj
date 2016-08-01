@@ -121,6 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR
 
 GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ["maps_key"]
 #Places key = "AIzaSyByCXfqVTQhBbbZYmmfNUeVs3NLg1AxCUc"

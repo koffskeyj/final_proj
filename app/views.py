@@ -27,7 +27,7 @@ class UserCreateView(CreateView):
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("profile_update_view")
-    fields = ["bio", "basketball", "football", "city", "state"]
+    fields = ["bio", "photo", "basketball", "football", "city", "state"]
 
     def get_object(self, queryset=None):
         return self.request.user.profile
@@ -136,7 +136,7 @@ class CheckInListView(ListView):
     def get_queryset(self):
         days_amount = 1
         location = self.kwargs.get('pk', None)
-        return CheckIn.objects.filter(checkin_location_id=location).filter(created__gte=datetime.now()-timedelta(days=day_amount))
+        return CheckIn.objects.filter(checkin_location_id=location).filter(created__gte=datetime.now()-timedelta(days=days_amount))
 
 
 class CheckInDetailsListView(ListView):

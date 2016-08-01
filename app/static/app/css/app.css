@@ -1,5 +1,6 @@
 body {
   font-family: courier;
+  background-image: url("app/map.jpg") repeat;
 }
 
 .navbar {
@@ -35,9 +36,11 @@ body {
 }
 
 #id_bio {
+  border-radius: 5px;
   height: 200px;
   width: 600px;
   font-size: 30px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.42);
 }
 
 .map {
@@ -50,13 +53,17 @@ body {
 }
 
 #id_location_name {
+  border-radius: 5px;
   width: 500px;
   font-size: 30px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.42);
 }
 
 #id_location_city {
+  border-radius: 5px;
   width: 500px;
   font-size: 30px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.42);
 }
 
 #id_center {
@@ -73,23 +80,28 @@ body {
   -webkit-appearance: menulist-button;
   width: 300px;
   font-size: 30px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.42);
 }
 
 #id_basketball {
   -webkit-appearance: menulist-button;
   width: 300px;
   font-size: 30px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.42);
 }
 
 #id_city {
+  border-radius: 5px;
   width: 600px;
   font-size: 30px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.42);
 }
 
 #id_state {
   -webkit-appearance: menulist-button;
   width: 300px;
   font-size: 30px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.42);
 }
 input[type="submit"] {
   width: 250px;
@@ -106,10 +118,35 @@ input[type="search"]{
 }
 
 .button {
+  border-radius: 5px;
   background-color: indigo;
   color: white;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.42);
 }
 
 form {
   margin: 500;
+}
+
+.panel > .panel-heading {
+  background-color: indigo;
+  color: white;
+  height: 70px;
+  padding-top: 0.1px;
+  text-align: center;
+}
+
+.panel.panel-default {
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.42);
+  border: 1px solid black;
+}
+
+.list-group-item {
+  border: 1px solid black;
+}
+
+#map-canvas {
+  border-radius: 10px;
+  border: 1px solid black;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.42);
 }
