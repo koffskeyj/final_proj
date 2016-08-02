@@ -60,7 +60,7 @@
             </div>
             <ul class="list-group">
               {% for location in object_list %}
-              <li class="list-group-item"><a href="{% url 'checkin_list_view' location.pk %}"><h6>{{ location.location_name }}: {{ location.location_address }}</h6></a></li>
+              <li class="list-group-item"><a href="{% url 'football_checkin_list_view' location.pk %}"><h6>{{ location.location_name }} : {{ location.location_address }}</h6></a></li>
               {% endfor %}
             </ul>
           </div>

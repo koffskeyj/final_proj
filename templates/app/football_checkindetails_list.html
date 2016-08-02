@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ user_count }} Fan(s)</h1>
+  {% for user in users %}
+    {{ user }} <br>
+  {% endfor %}
+{% endblock %}

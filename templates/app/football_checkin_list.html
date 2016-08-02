@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="col-md-6">
+<style>
+  #map-canvas {
+    height: 300px;
+    width: 425px;
+    }
+</style>
+  <div id="map-canvas"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
+  <script>
+      function initialize() {
+          var map = new google.maps.Map(document.getElementById('map-canvas'));
+          var bounds = new google.maps.LatLngBounds();
+          function addMarker(lat, lng, title) {
+              var position = new google.maps.LatLng(lat, lng);
+              var marker = new google.maps.Marker({
+                  position: position,
+                  map: map,
+                  title: title
+              });
+              bounds.extend(position);
+              map.setCenter(position);
+              map.setZoom(17);
+
+          }
+          {% for checkin in object_list %}
+              addMarker({{ checkin.checkin_location.geolocation.latitude }}, {{ checkin.checkin_location.geolocation.longitude }}, "{{ location.location_name }}");
+          {% endfor %}
+          bounds.extend(position);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+  <br>
+  {{ location.location_address }} <br> <br>
+
+  <div id="comments" class="panel panel-default">
+    <div class="panel-heading">
+      <h3>Comments</h3>
+    </div>
+    <div class="panel-body">
+      <form class="" action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="button" type="submit" name="name" value="Comment">
+      </form>
+    </div>
+    </div>
+    {% for comment in comment_list  %}
+      {% if comment|length > 0 %}
+      <img class="thumb" src="{{ comment.checkin_user.profile.photo_url }}" alt="" />{{ comment.checkin_user }}</h3>
+          {{ comment.body|default_if_none:'' }} <br><br>
+      {% endif %}
+    {% endfor %}
+    </div>
+
+
+<div class="col-md-6">
+  <div class="center">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h1>Reppin'</h1>
+      </div>
+      <ul class="list-group">
+      {% for team in teams %}
+      <li class="list-group-item"><a href="{% url 'football_checkin_details_list_view' location.pk %}?team={{ team.school }}"><h6>{{ team.school }}</h6></a></li>
+      {% endfor %}
+      </ul>
+  </div>
+</div>
+<!--
+      {% for profile in team.profile_set.all %}
+        {% if profile.user.id in users_pk %}
+          {{ profile.user }} <br>
+        {% endif %}
+      {% endfor %}
+    -->
+
+  <!--
+  {% for checkin in object_list %}
+  <a href="{% url 'football_checkin_details_list_view' checkin.pk %}">{{ checkin.checkin_user.profile.football }}</a><br>
+  {% endfor %}
+-->
+</div>
+{% endblock %}

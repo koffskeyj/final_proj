@@ -5,6 +5,9 @@ from django.db.models.signals import post_save
 from geoposition.fields import GeopositionField
 from django.forms import ModelForm
 
+BASKETBALL = 'Basketball'
+FOOTBALL = 'Football'
+SPORT_CHOICES = ((BASKETBALL, 'Basketball'), (FOOTBALL, 'Football'))
 
 class BasketballTeam(models.Model):
     school = models.CharField(max_length=30)
@@ -41,7 +44,14 @@ class Profile(models.Model):
     football = models.ForeignKey(FootballTeam, null=True, blank=True)
     city = models.CharField(max_length=50, null=True, blank=True)
     state = models.ForeignKey(State, null=True, blank=True)
+    zipcode = models.CharField(max_length=10, null=True, blank=True)
     photo = models.ImageField(upload_to="profile_photos", null=True, blank=True, verbose_name="Profile Photo")
+
+    @property
+    def photo_url(self):
+        if self.photo:
+            return self.photo.url
+        return "http://www.sessionlogs.com/media/icons/defaultIcon.png"
 
 
 class Location(models.Model):
@@ -55,6 +65,7 @@ class Location(models.Model):
 class CheckIn(models.Model):
     checkin_user = models.ForeignKey(User)
     checkin_location = models.ForeignKey(Location)
+    checkin_type = models.CharField(max_length=30, choices=SPORT_CHOICES, default=FOOTBALL)
     created = models.DateTimeField(auto_now_add=True)
     body = models.CharField(max_length=200, null=True, blank=True)
 

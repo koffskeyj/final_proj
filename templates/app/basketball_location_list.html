@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  #map-canvas {
+    height: 300px;
+    width: 425px
+    }
+</style>
+    </head>
+    <body>
+      <div class="col-md-6">
+          <!--
+            {% for item in object_list %}
+                <dt>{{ item.user }}: </dt>
+                <dd>Football: {{ item.user.profile.football }}</dd>
+                <dd>Basketball: {{ item.user.profile.basketball }}</dd>
+            {% endfor %}
+          -->
+        <div id="map-canvas"></div>
+
+        <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
+        <script>
+            function initialize() {
+                var map = new google.maps.Map(document.getElementById('map-canvas'));
+                var bounds = new google.maps.LatLngBounds();
+                var geocoder = new google.maps.Geocoder();
+                function addMarker(lat, lng, title) {
+                    var position = new google.maps.LatLng(lat, lng);
+                    var marker = new google.maps.Marker({
+                        position: position,
+                        map: map,
+                        title: title
+                    });
+                    bounds.extend(position);
+                    map.setCenter(position);
+                }
+
+                var state = "{{ request.user.profile.city }}, {{ request.user.profile.state }}";
+                var geocoder;
+                geocoder.geocode( {'address' : state}, function(results, status) {
+                  if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    map.setZoom(10)
+                  }
+                });
+
+                {% for item in object_list %}
+                    addMarker({{ item.geolocation.latitude }}, {{ item.geolocation.longitude }}, "{{ poi.name }}");
+                {% endfor %}
+                map.fitBounds(bounds);
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+      </div>
+      <div id="places" class="col-md-6">
+        <div class="center">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h1>{{ request.user.profile.basketball }} Spots</h1>
+            </div>
+            <ul class="list-group">
+              {% for location in object_list %}
+              <li class="list-group-item"><a href="{% url 'basketball_checkin_list_view' location.pk %}"><h6>{{ location.location_name }} : {{ location.location_address }}</h6></a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>
+<br><br>
+{% endblock %}

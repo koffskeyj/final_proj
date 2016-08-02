@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 <html>
     <meta charset="utf-8">
-    <title>Fanatic.ly</title>
+    <title>Fanatik</title>
     <link rel="stylesheet" href='{% static "app/css/bootstrap.css" %}' media="screen" title="bootstrap" charset="utf-8">
     <link rel="stylesheet" href='{% static "app/css/app.css" %}' media="screen" title="bootstrap" charset="utf-8">
       {% if request.user.is_anonymous %}
       <nav class="navbar navbar-default">
-            <a class="navbar-brand" href="#">Fanatic.ly</a>
+            <a class="navbar-brand" href="#">Fanatik</a>
       <ul class="nav navbar-nav">
         <li><a href="{% url 'login' %}" role="button">Login</a></li>
         <li><a href="{% url 'user_create_view' %}" role="button">Create User</a></li>
@@ -15,11 +15,12 @@
       {% endif %}
       {% if request.user.is_authenticated %}
       <nav class="navbar navbar-default">
-            <a class="navbar-brand" href="#">Fanatic.ly</a>
+            <a class="navbar-brand" href="#">Fanatik</a>
       <ul class="nav navbar-nav">
         <li><a href="{% url 'profile_update_view' %}" role="button">Profile</a></li>
         <li><a href="{% url 'get_places_view' %}">Choose a Spot</a></li>
-        <li><a href="{% url 'location_list_view' %}">Hot Spots</a></li>
+        <li><a href="{% url 'football_location_list_view' %}">Football</a></li>
+        <li><a href="{% url 'basketball_location_list_view' %}">Basketball</a></li>
         <li id="right"><a href="{% url 'logout' %}?next=/" role="button">Logout {{ request.user }}</a></li>
       </nav>
       {% endif %}
