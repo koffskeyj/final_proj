@@ -149,6 +149,7 @@ class FootballCheckInListView(CreateView):
         context["location"] = Location.objects.get(id=location)
         context["debates"] = Debate.objects.filter(debate_location_id=location)
         context["object_list"] = self.get_queryset()
+        # hellooooooo
         return context
 
 
