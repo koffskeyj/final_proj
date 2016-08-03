@@ -73,6 +73,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'the_final_frontier.wsgi.application'
 
 
+
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
@@ -123,6 +124,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ["maps_key"]
 #Places key = "AIzaSyByCXfqVTQhBbbZYmmfNUeVs3NLg1AxCUc"
