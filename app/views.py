@@ -4,7 +4,7 @@ from django.views.generic.edit import UpdateView, CreateView, FormView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Count
 from app.models import Location, CheckIn, FootballTeam, BasketballTeam, Debate, DebateForm
 from app.forms import ChoosePlaceForm
@@ -130,6 +130,10 @@ class FootballCheckInListView(CreateView):
     template_name = "app/football_checkin_list.html"
     success_url = reverse_lazy("football_checkin_list_view")
 
+    def get_success_url(self):
+        location = self.kwargs.get('pk', None)
+        return reverse('football_checkin_list_view', kwargs={'pk': location})
+
     def form_valid(self, form, **kwargs):
         location = self.kwargs.get('pk', None)
         debate_body = form.cleaned_data["body"].lower()
@@ -153,18 +157,19 @@ class FootballCheckInListView(CreateView):
         return context
 
 
-
-
 class BasketballCheckInListView(CreateView):
     model = CheckIn
+    form_class = DebateForm
     template_name= "app/basketball_checkin_list.html"
     success_url = reverse_lazy("basketball_checkin_list_view")
 
 
-    def form_valid(self,form):
-        checkin_body = form.cleaned_data["body"].lower()
-        checkin = form.save(commit=False)
-        checkin.checkin_user = self.request.user
+    def form_valid(self, form, **kwargs):
+        location = self.kwargs.get('pk', None)
+        debate_body = form.cleaned_data["body"].lower()
+        debate = form.save(commit=False)
+        debate.debate_user = self.request.user
+        debate.debate_location = Location.objects.get(id=location)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):

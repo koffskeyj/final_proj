@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="logo">
 <div class="checkin">
 <form class="" method="post">
   {% csrf_token %}
   <div class="center">
-    <h1>Fanatik</h1><br>
   </div>
   <table align="center">
     <tr>
@@ -34,6 +34,7 @@
         <li class="list-group-item"><a href="{% url 'check_in_create_view' %}?lat={{ address.1.lat }}&lng={{ address.1.lng }}&name={{ places|first }}&city={{ location }}&address={{ address.0 }}">{{ address.0 }}</a></li>
         {% endfor %}
       </ul>
+</div>
 </div>
 </div>
 {% endblock %}

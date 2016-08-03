@@ -1,6 +1,18 @@
 body {
   font-family: courier;
-  background-image: url("app/map.jpg") repeat;
+
+}
+
+#navbar_logo {
+  height: 30px;
+  width: 30px;
+}
+
+.logo {
+  background-image: url('/static/app/logo.jpg');
+  background-position: 50% -60%;
+  background-repeat: no-repeat;
+  background-size: 450px 300px;
 }
 
 .navbar {
@@ -192,11 +204,12 @@ img {
   background-color: white;
 }
 
-.checkin {
-  padding-top: 75px;
-}
 
 .center-column {
   display: block;
  margin: 15px auto;
+}
+
+.checkin {
+  padding-top: 185px;
 }
