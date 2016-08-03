@@ -136,4 +136,4 @@ GEOPOSITION_MARKER_OPTIONS = {
     'center' : {'lat':39.36827914916016, 'lng':-98.173828125}
 }
 
-LOGIN_REDIRECT_URL = '/choose_place/'
+LOGIN_REDIRECT_URL = '/'

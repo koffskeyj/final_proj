@@ -38,21 +38,19 @@
   </div>
   <div id="comments" class="panel panel-default">
     <div class="panel-heading">
-      <h3>Comments</h3>
+      <h3>Debate</h3>
     </div>
     <div class="panel-body">
       <form class="" action="" method="post">
         {% csrf_token %}
         {{form.as_p}}
-        <input class="button" type="submit" name="name" value="Comment">
+        <input class="button" type="submit" value="Submit">
       </form>
     </div>
     </div>
-    {% for comment in comment_list  %}
-      {% if comment|length > 0 %}
-      <img class="thumb" src="{{ comment.checkin_user.profile.photo_url }}" alt="" />{{ comment.checkin_user }}</h3>
-          {{ comment.body|default_if_none:'' }} <br><br>
-      {% endif %}
+    {% for debate in debates  %}
+      <img class="thumb" src="{{ debate.debate_user.profile.photo_url }}" alt="" /> {{ debate.debate_user }}: </h3>
+          {{ debate.body}} <br><br>
     {% endfor %}
     </div>
 

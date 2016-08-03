@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView
-from django.views.generic.edit import UpdateView, CreateView
+from django.views.generic.edit import UpdateView, CreateView, FormView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Count
-from app.models import Location, CheckIn, FootballTeam, BasketballTeam
+from app.models import Location, CheckIn, FootballTeam, BasketballTeam, Debate, DebateForm
 from app.forms import ChoosePlaceForm
 from googleplaces import GooglePlaces, types, lang
 from geoposition import Geoposition
@@ -69,7 +69,7 @@ def get_places_view(request):
 class CheckInCreateView(LoginRequiredMixin, CreateView):
     model = CheckIn
     fields = ["checkin_type", "body"]
-    success_url = "/choose_place"
+    success_url = "/"
 
     def get_context_data(self, **kwargs):
         from geoposition import Geoposition
@@ -105,7 +105,7 @@ class FootballLocationListView(ListView):
 
     def get_queryset(self):
         nearby_zips = []
-        url = urlopen("https://www.zipcodeapi.com/rest/" + ZIPCODE_API_KEY + "/radius.json/{}/20/mile".format(self.request.user.profile.zipcode)).read()
+        url = urlopen("https://www.zipcodeapi.com/rest/" + ZIPCODE_API_KEY + "/radius.json/{}/30/mile".format(self.request.user.profile.zipcode)).read()
         results = json.loads(url.decode())
         for item in results["zip_codes"]:
             nearby_zips.append(item["zip_code"])
@@ -116,7 +116,7 @@ class BasketballLocationListView(ListView):
 
     def get_queryset(self):
         nearby_zips = []
-        url = urlopen("https://www.zipcodeapi.com/rest/" + ZIPCODE_API_KEY + "/radius.json/{}/20/mile".format(self.request.user.profile.zipcode)).read()
+        url = urlopen("https://www.zipcodeapi.com/rest/" + ZIPCODE_API_KEY + "/radius.json/{}/30/mile".format(self.request.user.profile.zipcode)).read()
         results = json.loads(url.decode())
         for item in results["zip_codes"]:
             nearby_zips.append(item["zip_code"])
@@ -126,44 +126,36 @@ class BasketballLocationListView(ListView):
 
 class FootballCheckInListView(CreateView):
     model = CheckIn
-    fields = ["body"]
-    template_name= "app/football_checkin_list.html"
+    form_class = DebateForm
+    template_name = "app/football_checkin_list.html"
     success_url = reverse_lazy("football_checkin_list_view")
 
-
-    def form_valid(self,form):
-        checkin_body = form.cleaned_data["body"].lower()
-        checkin = form.save(commit=False)
-        checkin.checkin_user = self.request.user
+    def form_valid(self, form, **kwargs):
+        location = self.kwargs.get('pk', None)
+        debate_body = form.cleaned_data["body"].lower()
+        debate = form.save(commit=False)
+        debate.debate_user = self.request.user
+        debate.debate_location = Location.objects.get(id=location)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        teams_list = []
-        users_list = []
         context = super().get_context_data(**kwargs)
         location = self.kwargs.get('pk', None)
+        location_debate = CheckIn.objects.get(checkin_location_id=location)
         teams = FootballTeam.objects.filter(pk__in=set(self.get_queryset().values_list("checkin_user__profile__football", flat=True)))
         users_pk = self.get_queryset().values_list("checkin_user__pk", flat=True).distinct()
-        # context["teams"] = FootballTeam.objects.all().profile_set.filter()
         context["teams"] = FootballTeam.objects.filter(pk__in=set(self.get_queryset().values_list("checkin_user__profile__football", flat=True)))
         context["users_pk"] = self.get_queryset().values_list("checkin_user__pk", flat=True)
         context["location"] = Location.objects.get(id=location)
-        context["comment_list"] = CheckIn.objects.filter(checkin_location_id=location)
+        context["debates"] = Debate.objects.filter(debate_location_id=location)
         context["object_list"] = self.get_queryset()
-        # context["object_list"] = self.get_queryset()
-        for team in teams:
-            teams_list.append(team.school)
-            for profile in team.profile_set.all():
-                if profile.user.id in users_pk:
-                    users_list.append(profile.user.username)
-                    print(teams_list)
-                    print(users_list)
         return context
+
+
 
 
 class BasketballCheckInListView(CreateView):
     model = CheckIn
-    fields = ["body"]
     template_name= "app/basketball_checkin_list.html"
     success_url = reverse_lazy("basketball_checkin_list_view")
 
@@ -201,6 +193,7 @@ class FootballCheckInDetailsListView(ListView):
         context = super().get_context_data(**kwargs)
         context["users"] = self.get_queryset().values_list("checkin_user__username", flat=True).distinct()
         context["user_count"] = self.get_queryset().values_list("checkin_user__username", flat=True).distinct().count()
+
         return context
 
     def get_queryset(self):

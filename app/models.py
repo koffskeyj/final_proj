@@ -61,14 +61,29 @@ class Location(models.Model):
     location_zip = models.CharField(max_length=10, null=True, blank=True)
     geolocation = GeopositionField(null=True, blank=True)
 
+    def __str__(self):
+        return self.location_name
+
 
 class CheckIn(models.Model):
     checkin_user = models.ForeignKey(User)
     checkin_location = models.ForeignKey(Location)
     checkin_type = models.CharField(max_length=30, choices=SPORT_CHOICES, default=FOOTBALL)
     created = models.DateTimeField(auto_now_add=True)
-    body = models.TextField(max_length=200, null=True, blank=True)
+    body = models.TextField(max_length=50, null=True, blank=True)
 
+
+class Debate(models.Model):
+    debate_user = models.ForeignKey(User)
+    debate_location = models.ForeignKey(Location)
+    body = models.TextField(max_length=100, null=True, blank=True)
+
+
+class DebateForm(ModelForm):
+
+    class Meta:
+        model = Debate
+        fields = ["body"]
 
 
 @receiver(post_save, sender="auth.User")
