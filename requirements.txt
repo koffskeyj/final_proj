@@ -1,9 +1,11 @@
 beautifulsoup4==4.4.1
+dj-database-url==0.4.1
 Django==1.9.7
 django-geoposition==0.2.3
 django-mathfilters==0.4.0
 gunicorn==19.6.0
 Pillow==3.3.0
+psycopg2==2.6.2
 python-google-places==1.2.0
 requests==2.10.0
 six==1.10.0

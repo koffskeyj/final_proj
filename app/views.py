@@ -156,6 +156,10 @@ class FootballCheckInListView(CreateView):
         # hellooooooo
         return context
 
+    def get_queryset(self):
+        location = self.kwargs.get('pk', None)
+        return CheckIn.objects.filter(checkin_location_id=location)
+
 
 class BasketballCheckInListView(CreateView):
     model = CheckIn

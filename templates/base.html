@@ -7,16 +7,16 @@
     <link rel="stylesheet" href='{% static "app/css/app.css" %}' media="screen" title="bootstrap" charset="utf-8">
       {% if request.user.is_anonymous %}
       <nav class="navbar navbar-default">
-            <a class="navbar-brand" href="#">Fanatik</a>
       <ul class="nav navbar-nav">
+        <li><img id="navbar_logo" src="/static/app/fanatik.png" alt="" /></li>
         <li><a href="{% url 'login' %}" role="button">Login</a></li>
         <li><a href="{% url 'user_create_view' %}" role="button">Create User</a></li>
       </nav>
       {% endif %}
       {% if request.user.is_authenticated %}
       <nav class="navbar navbar-default">
-            <a class="navbar-brand" href="#"><img id="navbar_logo" src="static/app/white_logo.jpg" alt="" /></a>
       <ul class="nav navbar-nav">
+        <li><img id="navbar_logo" src="/static/app/fanatik.png" alt="" /></li>
         <li><a href="{% url 'profile_update_view' %}" role="button">Profile</a></li>
         <li><a href="{% url 'get_places_view' %}">Choose a Spot</a></li>
         <li><a href="{% url 'football_location_list_view' %}">NCAAF: {{ request.user.profile.football }}</a></li>
@@ -28,3 +28,4 @@
         {% block content %}
         {% endblock %}
       </div>
+    </html>

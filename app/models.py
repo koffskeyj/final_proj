@@ -77,6 +77,10 @@ class Debate(models.Model):
     debate_user = models.ForeignKey(User)
     debate_location = models.ForeignKey(Location)
     body = models.TextField(max_length=100, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created"]
 
 
 class DebateForm(ModelForm):

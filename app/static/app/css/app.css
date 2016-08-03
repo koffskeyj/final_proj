@@ -1,22 +1,27 @@
 body {
   font-family: courier;
-
+  background-image: url("/static/app/map_background.png");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 #navbar_logo {
-  height: 30px;
-  width: 30px;
+  padding-top: 10px;
+  height: 40px;
+  width: 60px;
+  border: 0px;
 }
 
-.logo {
-  background-image: url('/static/app/logo.jpg');
-  background-position: 50% -60%;
-  background-repeat: no-repeat;
-  background-size: 450px 300px;
+#logo {
+  border: 0px;
+  width: 400px;
 }
 
 .navbar {
   background-color: indigo;
+  border: 2px solid white;
 }
 
 .nav.navbar-nav li a {
@@ -211,5 +216,5 @@ img {
 }
 
 .checkin {
-  padding-top: 185px;
+  padding-top: 15px;
 }
