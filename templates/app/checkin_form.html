@@ -3,8 +3,31 @@
 <br>
 <br>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<form class="map" method="POST">{% csrf_token %}
-  {{ form.checkin_type }} <br><br>
-  <input class="button" type="submit" name="" value="Check In">
-</form>
+<div class="checkin">
+    <form class="" method="POST">
+      {% csrf_token %}
+      <div class="center">
+        <h3>{{ name }} : {{ address }}</h3> <br>
+      </div>
+      <table align="center">
+        <tr>
+          <td>
+            <div class="form-group">
+              <h3>Sport: <br> {{ form.checkin_type }}</h3> <br>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-group">
+              <h3>Trash Talk: <br> {{ form.body }}</h3> <br>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <div class="center">
+      <input class="button"  align="center" type="submit" value="Check In">
+    </div>
+    </form>
+</div>
 {% endblock %}

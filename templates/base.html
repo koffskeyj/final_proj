@@ -19,8 +19,8 @@
       <ul class="nav navbar-nav">
         <li><a href="{% url 'profile_update_view' %}" role="button">Profile</a></li>
         <li><a href="{% url 'get_places_view' %}">Choose a Spot</a></li>
-        <li><a href="{% url 'football_location_list_view' %}">Football</a></li>
-        <li><a href="{% url 'basketball_location_list_view' %}">Basketball</a></li>
+        <li><a href="{% url 'football_location_list_view' %}">NCAAF: {{ request.user.profile.football }}</a></li>
+        <li><a href="{% url 'basketball_location_list_view' %}">NCAAB: {{ request.user.profile.basketball }}</a></li>
         <li id="right"><a href="{% url 'logout' %}?next=/" role="button">Logout {{ request.user }}</a></li>
       </nav>
       {% endif %}

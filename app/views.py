@@ -68,7 +68,7 @@ def get_places_view(request):
 
 class CheckInCreateView(LoginRequiredMixin, CreateView):
     model = CheckIn
-    fields = ["checkin_type"]
+    fields = ["checkin_type", "body"]
     success_url = "/choose_place"
 
     def get_context_data(self, **kwargs):
@@ -77,6 +77,8 @@ class CheckInCreateView(LoginRequiredMixin, CreateView):
         context = super().get_context_data()
         lat = self.request.GET.get("lat")
         lng = self.request.GET.get("lng")
+        context["name"] = self.request.GET.get("name")
+        context["address"] = self.request.GET.get("address")
 
         # context["form"].fields["checkin_location"].initial = Geoposition(lat, lng)
         return context
@@ -107,7 +109,7 @@ class FootballLocationListView(ListView):
         results = json.loads(url.decode())
         for item in results["zip_codes"]:
             nearby_zips.append(item["zip_code"])
-        return Location.objects.filter(location_zip__in=nearby_zips).filter(checkin__checkin_user__profile__football=self.request.user.profile.football).distinct()
+        return Location.objects.filter(location_zip__in=nearby_zips).filter(checkin__checkin_user__profile__football=self.request.user.profile.football).filter(checkin__checkin_type="Football").distinct()
 
 class BasketballLocationListView(ListView):
     template_name = "app/basketball_location_list.html"
@@ -118,7 +120,7 @@ class BasketballLocationListView(ListView):
         results = json.loads(url.decode())
         for item in results["zip_codes"]:
             nearby_zips.append(item["zip_code"])
-        return Location.objects.filter(checkin__checkin_user__profile__basketball=self.request.user.profile.basketball).filter(location_zip__in=nearby_zips).distinct()
+        return Location.objects.filter(checkin__checkin_user__profile__basketball=self.request.user.profile.basketball).filter(location_zip__in=nearby_zips).filter(checkin__checkin_type="Basketball").distinct()
 
 
 
@@ -128,6 +130,12 @@ class FootballCheckInListView(CreateView):
     template_name= "app/football_checkin_list.html"
     success_url = reverse_lazy("football_checkin_list_view")
 
+
+    def form_valid(self,form):
+        checkin_body = form.cleaned_data["body"].lower()
+        checkin = form.save(commit=False)
+        checkin.checkin_user = self.request.user
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         teams_list = []
@@ -152,12 +160,19 @@ class FootballCheckInListView(CreateView):
                     print(users_list)
         return context
 
+
 class BasketballCheckInListView(CreateView):
     model = CheckIn
     fields = ["body"]
     template_name= "app/basketball_checkin_list.html"
     success_url = reverse_lazy("basketball_checkin_list_view")
 
+
+    def form_valid(self,form):
+        checkin_body = form.cleaned_data["body"].lower()
+        checkin = form.save(commit=False)
+        checkin.checkin_user = self.request.user
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         teams_list = []
@@ -166,32 +181,16 @@ class BasketballCheckInListView(CreateView):
         location = self.kwargs.get('pk', None)
         teams = BasketballTeam.objects.filter(pk__in=set(self.get_queryset().values_list("checkin_user__profile__basketball", flat=True)))
         users_pk = self.get_queryset().values_list("checkin_user__pk", flat=True).distinct()
-        # context["teams"] = FootballTeam.objects.all().profile_set.filter()
         context["teams"] = BasketballTeam.objects.filter(pk__in=set(self.get_queryset().values_list("checkin_user__profile__basketball", flat=True)))
         context["users_pk"] = self.get_queryset().values_list("checkin_user__pk", flat=True)
         context["location"] = Location.objects.get(id=location)
         context["comment_list"] = CheckIn.objects.filter(checkin_location_id=location)
         context["object_list"] = self.get_queryset()
-        # context["object_list"] = self.get_queryset()
-        for team in teams:
-            teams_list.append(team.school)
-            for profile in team.profile_set.all():
-                if profile.user.id in users_pk:
-                    users_list.append(profile.user.username)
-                    print(teams_list)
-                    print(users_list)
-        return context
 
     def get_queryset(self):
         days_amount = 1
         location = self.kwargs.get('pk', None)
         return CheckIn.objects.filter(checkin_location_id=location)
-
-    def form_valid(self,form):
-        checkin_body = form.cleaned_data["body"].lower()
-        checkin = form.save(commit=False)
-        checkin.user = self.request.user
-        return super().form_valid(form)
 
 
 class FootballCheckInDetailsListView(ListView):

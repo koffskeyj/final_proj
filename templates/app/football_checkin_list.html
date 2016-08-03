@@ -33,8 +33,9 @@
       google.maps.event.addDomListener(window, 'load', initialize);
   </script>
   <br>
-  {{ location.location_address }} <br> <br>
-
+  <div class="center-column">
+    {{ location.location_address }} <br> <br>
+  </div>
   <div id="comments" class="panel panel-default">
     <div class="panel-heading">
       <h3>Comments</h3>
@@ -60,7 +61,7 @@
   <div class="center">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h1>Reppin'</h1>
+        <h3>Reppin'</h3>
       </div>
       <ul class="list-group">
       {% for team in teams %}

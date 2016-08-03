@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="checkin">
 <form class="" method="post">
   {% csrf_token %}
+  <div class="center">
+    <h1>Fanatik</h1><br>
+  </div>
   <table align="center">
     <tr>
       <td>
@@ -19,7 +23,7 @@
     </tr>
   </table>
   <div class="center">
-    <input class="button" align="center" type="submit" name="" value="Find Places"><br>
+    <input class="button" align="center" type="submit" value="Find Places"><br>
   </div>
 </form>
 <br><br>
@@ -31,5 +35,5 @@
         {% endfor %}
       </ul>
 </div>
-
+</div>
 {% endblock %}

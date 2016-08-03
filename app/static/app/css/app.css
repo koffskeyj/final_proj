@@ -115,10 +115,6 @@ input[type="search"]{
   width: 200px;
 }
 
-# #places {
-  padding-top: 10px;
-}
-
 .button {
   border-radius: 5px;
   background-color: indigo;
@@ -177,7 +173,7 @@ img {
 }
 
 #comments {
-  width: 400px;
+  width: 430px;
 }
 
 #id_checkin_type {
@@ -186,4 +182,21 @@ img {
   font-size: 30px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.42);
   background-color: white;
+}
+
+#id_body {
+  width: 300px;
+  height: 200px;
+  font-size: 30px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.42);
+  background-color: white;
+}
+
+.checkin {
+  padding-top: 75px;
+}
+
+.center-column {
+  display: block;
+ margin: 15px auto;
 }

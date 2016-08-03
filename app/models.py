@@ -67,7 +67,7 @@ class CheckIn(models.Model):
     checkin_location = models.ForeignKey(Location)
     checkin_type = models.CharField(max_length=30, choices=SPORT_CHOICES, default=FOOTBALL)
     created = models.DateTimeField(auto_now_add=True)
-    body = models.CharField(max_length=200, null=True, blank=True)
+    body = models.TextField(max_length=200, null=True, blank=True)
 
 
 
