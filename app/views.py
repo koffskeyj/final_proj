@@ -197,7 +197,6 @@ class BasketballCheckInListView(CreateView):
         context["object_list"] = self.get_queryset()
 
     def get_queryset(self):
-        days_amount = 1
         location = self.kwargs.get('pk', None)
         return CheckIn.objects.filter(checkin_location_id=location)
 

@@ -24,7 +24,7 @@ from django.views.generic import RedirectView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('django.contrib.auth.urls')),
-    url(r'^$', IndexView.as_view(), name="index_view"),
+    url(r'^$', AllLocationsListView.as_view(), name="all_locations_list_view"),
     url(r'^user_create/$', UserCreateView.as_view(), name='user_create_view'),
     url(r'^accounts/profile/$', ProfileUpdateView.as_view(), name='profile_update_view'),
     url(r'^choose_place/$', get_places_view, name='get_places_view'),

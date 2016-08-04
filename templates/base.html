@@ -8,7 +8,7 @@
       {% if request.user.is_anonymous %}
       <nav class="navbar navbar-default">
       <ul class="nav navbar-nav">
-        <li><img id="navbar_logo" src="/static/app/fanatik.png" alt="" /></li>
+        <li><img id="navbar_logo" src="https://s3-us-west-2.amazonaws.com/fanatik/app/fanatik.png" alt="" /></li>
         <li><a href="{% url 'login' %}" role="button">Login</a></li>
         <li><a href="{% url 'user_create_view' %}" role="button">Create User</a></li>
         <li><a href="{% url 'all_locations_list_view' %}">View All Locations</a></li>
