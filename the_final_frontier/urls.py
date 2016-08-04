@@ -18,7 +18,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
-from app.views import IndexView, UserCreateView, ProfileUpdateView, CheckInCreateView, FootballLocationListView, BasketballLocationListView, FootballCheckInListView, BasketballCheckInListView, FootballCheckInDetailsListView, BasketballCheckInDetailsListView, get_places_view
+from app.views import IndexView, UserCreateView, ProfileUpdateView, CheckInCreateView, FootballLocationListView, BasketballLocationListView, FootballCheckInListView, BasketballCheckInListView, FootballCheckInDetailsListView, BasketballCheckInDetailsListView, AllLocationsListView, get_places_view
 from django.views.generic import RedirectView
 
 urlpatterns = [
@@ -35,4 +35,5 @@ urlpatterns = [
     url(r'^basketball_location/(?P<pk>\d+)/checkins/$', BasketballCheckInListView.as_view(), name='basketball_checkin_list_view'),
     url(r'^football_location/(?P<pk>\d+)/checkins/checkin_details/$', FootballCheckInDetailsListView.as_view(), name='football_checkin_details_list_view'),
     url(r'^basketball_location/(?P<pk>\d+)/checkins/checkin_details/$', BasketballCheckInDetailsListView.as_view(), name='basketball_checkin_details_list_view'),
+    url(r'^all_locations/$', AllLocationsListView.as_view(), name='all_locations_list_view')
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

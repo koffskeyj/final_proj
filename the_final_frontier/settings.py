@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'geoposition'
+    'geoposition',
+    'storages'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -145,4 +146,25 @@ GEOPOSITION_MARKER_OPTIONS = {
     'center' : {'lat':39.36827914916016, 'lng':-98.173828125}
 }
 
-LOGIN_REDIRECT_URL = '/'
+aws_access_key = os.environ["aws_access_key"]
+aws_secret_key = os.environ["aws_secret_key"]
+aws_bucket = os.environ["aws_bucket"]
+
+AWS_STORAGE_BUCKET_NAME = aws_bucket
+AWS_ACCESS_KEY_ID = aws_access_key
+AWS_SECRET_ACCESS_KEY = aws_secret_key
+
+AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(aws_bucket)
+
+if aws_bucket:
+
+    AWS_S3_FILE_OVERWRITE = False
+
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+    STATICFILES_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+    STATICFILES_LOCATION = 'static'
+
+
+LOGIN_REDIRECT_URL = 'all_locations_list_view'

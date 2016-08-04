@@ -11,6 +11,7 @@
         <li><img id="navbar_logo" src="/static/app/fanatik.png" alt="" /></li>
         <li><a href="{% url 'login' %}" role="button">Login</a></li>
         <li><a href="{% url 'user_create_view' %}" role="button">Create User</a></li>
+        <li><a href="{% url 'all_locations_list_view' %}">View All Locations</a></li>
       </nav>
       {% endif %}
       {% if request.user.is_authenticated %}
@@ -21,6 +22,7 @@
         <li><a href="{% url 'get_places_view' %}">Choose a Place</a></li>
         <li><a href="{% url 'football_location_list_view' %}">NCAAF: {{ request.user.profile.football }}</a></li>
         <li><a href="{% url 'basketball_location_list_view' %}">NCAAB: {{ request.user.profile.basketball }}</a></li>
+        <li><a href="{% url 'all_locations_list_view' %}">View All Locations</a></li>
         <li id="right"><a href="{% url 'logout' %}?next=/" role="button">Logout {{ request.user }}</a></li>
       </nav>
       {% endif %}

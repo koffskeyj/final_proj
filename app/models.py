@@ -55,7 +55,7 @@ class Profile(models.Model):
     def photo_url(self):
         if self.photo:
             return self.photo.url
-        return "http://www.sessionlogs.com/media/icons/defaultIcon.png"
+        return "http://www.hi-wallpapers.com/uploads/image/201307/12/1373597280.jpg"
 
 
 class Location(models.Model):
@@ -82,9 +82,6 @@ class Debate(models.Model):
     debate_location = models.ForeignKey(Location)
     body = models.TextField(max_length=100, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.debate_location
 
     class Meta:
         ordering = ["-created"]

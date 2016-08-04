@@ -100,7 +100,14 @@ class CheckInCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class FootballLocationListView(ListView):
+class AllLocationsListView(ListView):
+    template_name = "app/all_location_list.html"
+
+    def get_queryset(self):
+        return Location.objects.all()
+
+
+class FootballLocationListView(LoginRequiredMixin, ListView):
     template_name = "app/football_location_list.html"
 
     def get_queryset(self):
@@ -111,7 +118,7 @@ class FootballLocationListView(ListView):
             nearby_zips.append(item["zip_code"])
         return Location.objects.filter(location_zip__in=nearby_zips).filter(checkin__checkin_user__profile__football=self.request.user.profile.football).filter(checkin__checkin_type="Football").distinct()
 
-class BasketballLocationListView(ListView):
+class BasketballLocationListView(LoginRequiredMixin, ListView):
     template_name = "app/basketball_location_list.html"
 
     def get_queryset(self):
@@ -186,7 +193,7 @@ class BasketballCheckInListView(CreateView):
         context["teams"] = BasketballTeam.objects.filter(pk__in=set(self.get_queryset().values_list("checkin_user__profile__basketball", flat=True)))
         context["users_pk"] = self.get_queryset().values_list("checkin_user__pk", flat=True)
         context["location"] = Location.objects.get(id=location)
-        context["comment_list"] = CheckIn.objects.filter(checkin_location_id=location)
+        context["debates"] = Debate.objects.get(debate_location_id=location)
         context["object_list"] = self.get_queryset()
 
     def get_queryset(self):

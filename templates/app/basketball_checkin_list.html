@@ -2,6 +2,13 @@
 {% block content %}
 <body>
 <div class="col-md-6">
+  <div class="center-column">
+    <div id="locationname" class="panel panel-default">
+      <div class="panel-body">
+        {{ location.location_name }} <br><br>
+      </div>
+    </div>
+  </div>
 <style>
   #map-canvas {
     height: 300px;
@@ -35,32 +42,35 @@
   </script>
   <br>
   <div class="center-column">
-  </div>
-  <div id="comments" class="panel panel-default">
     <div id="address" class="panel panel-default">
       <div class="panel-body">
         {{ location.location_address }} <br><br>
       </div>
     </div>
+  </div>
+  <div id="comments" class="panel panel-default">
     <div class="panel-heading">
-      <h3>Debate</h3>
+      <h3>Comment</h3>
     </div>
     <div class="panel-body">
       <form class="" action="" method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input class="button" type="submit" name="name" value="Submit">
-      </form>
+          {% csrf_token %}
+          {{form.as_p}}
+          <input class="button" type="submit" name="name" value="Submit">
+        </form>
+      </div>
     </div>
-    </div>
-    {% for comment in comment_list  %}
-      {% if comment|length > 0 %}
-      <img class="thumb" src="{{ comment.checkin_user.profile.photo_url }}" alt="" />{{ comment.checkin_user }}
-          {{ comment.body|default_if_none:'' }} <br><br>
-      {% endif %}
-    {% endfor %}
-    </div>
-
+  {% for debate in debates %}
+  {% if debate|length > 0 %}
+  <ul class="list-group">
+  {% endif %}
+  {% for debate in debates %}
+    <li id="debates" class="list-group-item"><img class="thumb" src="{{ debate.debate_user.profile.photo_url }}" alt="" /> {{ debate.debate_user }}: </h3>
+        {{ debate.body}} <br><br></li>
+  {% endfor %}
+  </ul>
+  {% endfor %}
+  </div>
 
 <div class="col-md-6">
   <div class="center">

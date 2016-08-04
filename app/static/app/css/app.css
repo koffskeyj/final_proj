@@ -1,17 +1,29 @@
 html, body {
   min-height : 100%;
   font-family: courier;
-  background-image: url("/static/app/sportsfans2.png"), url("/static/app/map_background.png");
+  background-image: url("https://s3-us-west-2.amazonaws.com/fanatik/app/sportsfans2.png"), url("https://s3-us-west-2.amazonaws.com/fanatik/app/map_background.png");
   background-repeat: no-repeat, repeat;
   background-position: center bottom, 200% 100%;
   background-size: 100% auto, 100% auto;
   background-attachment: fixed;
 }
 
-#address {
-  height: 40px;
+#locationname {
+  height: 50px;
   width: 425px;
-  line-height: 0.5em;
+  line-height: 15px;
+  text-align: center;
+}
+
+#commentbody {
+  height: 78px;
+}
+
+#address {
+  height: 50px;
+  width: 425px;
+  line-height: 12px;
+  text-align: center;
 }
 
 #navbar_logo {
@@ -19,6 +31,12 @@ html, body {
   height: 40px;
   width: 60px;
   border: 0px;
+}
+
+#debates {
+  height: 50px;
+  width: 425px;
+  padding-top: 10px;
 }
 
 #logo {
@@ -192,12 +210,12 @@ img {
 }
 
 .thumb {
-  height: 50px;
-  width: 50px;
+  height: 30px;
+  width: 30px;
 }
 
 #comments {
-  width: 430px;
+  width: 425px;
 }
 
 #id_checkin_type {
