@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
+<body>
   <h1>{{ user_count }} Fan(s)</h1>
   {% for user in users %}
+    {{ user }}:
     {% for checkin in object_list %}
-      {{ user }}: {{ checkin.body }}
+       {{ checkin.body }}
     {% endfor %}
   {% endfor %}
+</body>
 {% endblock %}

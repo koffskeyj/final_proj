@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<body id="chooseplace">
 <div class="checkin">
 <form class="" method="post">
   {% csrf_token %}
@@ -36,4 +37,5 @@
       </ul>
 </div>
 </div>
+</body>
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<body>
 <div class="col-md-6">
 <style>
   #map-canvas {
@@ -50,7 +51,7 @@
     </div>
     {% for comment in comment_list  %}
       {% if comment|length > 0 %}
-      <img class="thumb" src="{{ comment.checkin_user.profile.photo_url }}" alt="" />{{ comment.checkin_user }}</h3>
+      <img class="thumb" src="{{ comment.checkin_user.profile.photo_url }}" alt="" />{{ comment.checkin_user }}
           {{ comment.body|default_if_none:'' }} <br><br>
       {% endif %}
     {% endfor %}
@@ -83,4 +84,5 @@
   {% endfor %}
 -->
 </div>
+</body>
 {% endblock %}

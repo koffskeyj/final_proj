@@ -83,6 +83,9 @@ class Debate(models.Model):
     body = models.TextField(max_length=100, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.debate_location
+
     class Meta:
         ordering = ["-created"]
 

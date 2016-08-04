@@ -145,7 +145,7 @@ class FootballCheckInListView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         location = self.kwargs.get('pk', None)
-        location_debate = CheckIn.objects.get(checkin_location_id=location)
+        location_debate = CheckIn.objects.filter(checkin_location_id=location)
         teams = FootballTeam.objects.filter(pk__in=set(self.get_queryset().values_list("checkin_user__profile__football", flat=True)))
         users_pk = self.get_queryset().values_list("checkin_user__pk", flat=True).distinct()
         context["teams"] = FootballTeam.objects.filter(pk__in=set(self.get_queryset().values_list("checkin_user__profile__football", flat=True)))
