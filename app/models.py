@@ -38,7 +38,7 @@ class State(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User)
+    prof_user = models.OneToOneField(User)
     bio = models.TextField(null=True, blank=True)
     basketball = models.ForeignKey(BasketballTeam, null=True, blank=True)
     football = models.ForeignKey(FootballTeam, null=True, blank=True)
@@ -46,6 +46,10 @@ class Profile(models.Model):
     state = models.ForeignKey(State, null=True, blank=True)
     zipcode = models.CharField(max_length=10, null=True, blank=True)
     photo = models.ImageField(upload_to="profile_photos", null=True, blank=True, verbose_name="Profile Photo")
+
+    def __str__(self):
+        return self.prof_user.username
+
 
     @property
     def photo_url(self):
@@ -96,4 +100,4 @@ def create_user_profile(**kwargs):
     instance = kwargs.get("instance")
 
     if created:
-        Profile.objects.create(user=instance)
+        Profile.objects.create(prof_user=instance)

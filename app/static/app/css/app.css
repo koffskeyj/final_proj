@@ -1,10 +1,6 @@
 body {
   font-family: courier;
-  background-image: url("/static/app/map_background.png");
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background-image: url("/static/app/map_background.png"), url("/static/app/sportsfans.png");
 }
 
 #navbar_logo {
