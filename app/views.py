@@ -203,7 +203,6 @@ class FootballCheckInDetailsListView(ListView):
         context = super().get_context_data(**kwargs)
         context["users"] = self.get_queryset().values_list("checkin_user__username", flat=True).distinct()
         context["user_count"] = self.get_queryset().values_list("checkin_user__username", flat=True).distinct().count()
-
         return context
 
     def get_queryset(self):

@@ -2,11 +2,8 @@
 {% block content %}
 <body>
   <h1>{{ user_count }} Fan(s)</h1>
-  {% for user in users %}
-    {{ user }}:
-    {% for checkin in object_list %}
-       {{ checkin.body }}
-    {% endfor %}
+  {% for checkin in object_list %}
+    {{ checkin.checkin_user}}: {{ checkin.body }} <br>
   {% endfor %}
 </body>
 {% endblock %}

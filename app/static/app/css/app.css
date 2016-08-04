@@ -1,13 +1,18 @@
 html, body {
   min-height : 100%;
   font-family: courier;
-  background-image: url("/static/app/sportsfans.png"), url("/static/app/map_background.png");
+  background-image: url("/static/app/sportsfans2.png"), url("/static/app/map_background.png");
   background-repeat: no-repeat, repeat;
   background-position: center bottom, 200% 100%;
   background-size: 100% auto, 100% auto;
   background-attachment: fixed;
 }
 
+#address {
+  height: 40px;
+  width: 425px;
+  line-height: 0.5em;
+}
 
 #navbar_logo {
   padding-top: 10px;
