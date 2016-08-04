@@ -134,7 +134,9 @@ MEDIA_ROOT = BASE_DIR
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ["maps_key"]
+maps_key = os.environ["maps_key"]
+
+GEOPOSITION_GOOGLE_MAPS_API_KEY = maps_key
 #Places key = "AIzaSyByCXfqVTQhBbbZYmmfNUeVs3NLg1AxCUc"
 
 GEOPOSITION_MAP_OPTIONS = {
@@ -167,4 +169,4 @@ if aws_bucket:
     STATICFILES_LOCATION = 'static'
 
 
-LOGIN_REDIRECT_URL = 'all_locations_list_view'
+LOGIN_REDIRECT_URL = '/'
