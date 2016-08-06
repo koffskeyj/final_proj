@@ -18,6 +18,7 @@ import os
 YOUR_API_KEY = os.environ["places_key"]
 google_places = GooglePlaces(YOUR_API_KEY)
 ZIPCODE_API_KEY = os.environ["zipcodes_key"]
+GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ["maps_key"]
 
 class IndexView(TemplateView):
     template_name = "index.html"
@@ -103,6 +104,15 @@ class CheckInCreateView(LoginRequiredMixin, CreateView):
 
 class AllLocationsListView(ListView):
     template_name = "app/all_location_list.html"
+    GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ["maps_key"]
+
+    def get_context_data(self, **kwargs):
+        from geoposition import Geoposition
+
+        context = super().get_context_data(**kwargs)
+        context["key"] = GEOPOSITION_GOOGLE_MAPS_API_KEY
+
+        return context
 
     def get_queryset(self):
         return Location.objects.all()
@@ -110,6 +120,15 @@ class AllLocationsListView(ListView):
 
 class FootballLocationListView(LoginRequiredMixin, ListView):
     template_name = "app/football_location_list.html"
+    GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ["maps_key"]
+
+    def get_context_data(self, **kwargs):
+        from geoposition import Geoposition
+
+        context = super().get_context_data(**kwargs)
+        context["key"] = GEOPOSITION_GOOGLE_MAPS_API_KEY
+
+        return context
 
     def get_queryset(self):
         nearby_zips = []
@@ -121,6 +140,15 @@ class FootballLocationListView(LoginRequiredMixin, ListView):
 
 class BasketballLocationListView(LoginRequiredMixin, ListView):
     template_name = "app/basketball_location_list.html"
+    GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ["maps_key"]
+
+    def get_context_data(self, **kwargs):
+        from geoposition import Geoposition
+
+        context = super().get_context_data(**kwargs)
+        context["key"] = GEOPOSITION_GOOGLE_MAPS_API_KEY
+
+        return context
 
     def get_queryset(self):
         nearby_zips = []
@@ -137,6 +165,7 @@ class FootballCheckInListView(CreateView):
     form_class = DebateForm
     template_name = "app/football_checkin_list.html"
     success_url = reverse_lazy("football_checkin_list_view")
+    GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ["maps_key"]
 
     def get_success_url(self):
         location = self.kwargs.get('pk', None)
@@ -161,6 +190,7 @@ class FootballCheckInListView(CreateView):
         context["location"] = Location.objects.get(id=location)
         context["debates"] = Debate.objects.filter(debate_location_id=location)
         context["object_list"] = self.get_queryset()
+        context["key"] = GEOPOSITION_GOOGLE_MAPS_API_KEY
         # hellooooooo
         return context
 
@@ -174,6 +204,7 @@ class BasketballCheckInListView(CreateView):
     form_class = DebateForm
     template_name= "app/basketball_checkin_list.html"
     success_url = reverse_lazy("basketball_checkin_list_view")
+    GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ["maps_key"]
 
 
     def form_valid(self, form, **kwargs):
@@ -196,6 +227,7 @@ class BasketballCheckInListView(CreateView):
         context["location"] = Location.objects.get(id=location)
         context["debates"] = Debate.objects.filter(debate_location_id=location)
         context["object_list"] = self.get_queryset()
+        context["key"] = GEOPOSITION_GOOGLE_MAPS_API_KEY
         return context
 
     def get_queryset(self):
