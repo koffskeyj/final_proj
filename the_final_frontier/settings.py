@@ -162,6 +162,6 @@ if aws_bucket:
 
     STATICFILES_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-    STATICFILES_LOCATION = 'static'
+    STATICFILES_LOCATION = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
