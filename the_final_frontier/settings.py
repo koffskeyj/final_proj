@@ -136,7 +136,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 maps_key = os.environ["maps_key"]
 
-GEOPOSITION_GOOGLE_MAPS_API_KEY = maps_key
+GEOPOSITION_GOOGLE_MAPS_API_KEY = 'maps_key'
 
 GEOPOSITION_MAP_OPTIONS = {
 }
