@@ -73,6 +73,7 @@ class CheckInCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         from geoposition import Geoposition
+        #hello
 
         context = super().get_context_data()
         lat = self.request.GET.get("lat")
