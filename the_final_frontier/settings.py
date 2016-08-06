@@ -140,12 +140,9 @@ GEOPOSITION_GOOGLE_MAPS_API_KEY = maps_key
 #Places key = "AIzaSyByCXfqVTQhBbbZYmmfNUeVs3NLg1AxCUc"
 
 GEOPOSITION_MAP_OPTIONS = {
-    'zoom' : 4,
-    'center' : {'lat':39.36827914916016, 'lng':-98.173828125}
 }
 
 GEOPOSITION_MARKER_OPTIONS = {
-    'center' : {'lat':39.36827914916016, 'lng':-98.173828125}
 }
 
 aws_access_key = os.environ["aws_access_key"]
@@ -158,15 +155,14 @@ AWS_SECRET_ACCESS_KEY = aws_secret_key
 
 AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(aws_bucket)
 
-if aws_bucket:
+#if aws_bucket:
 
-    AWS_S3_FILE_OVERWRITE = False
+    #AWS_S3_FILE_OVERWRITE = False
 
-    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    #STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-    STATICFILES_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    #STATICFILES_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-    STATICFILES_LOCATION = 'static'
-
+    #STATICFILES_LOCATION = 'static'
 
 LOGIN_REDIRECT_URL = '/'

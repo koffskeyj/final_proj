@@ -41,7 +41,8 @@ html, body {
 
 #logo {
   border: 0px;
-  width: 400px;
+  height: 200px;
+  width: 300px;
 }
 
 .navbar {
@@ -116,6 +117,10 @@ html, body {
 #right {
   position: absolute;
   right: 50px;
+}
+
+li#debates.list-group-item {
+  border-bottom-style: none;
 }
 
 #id_football {
@@ -241,5 +246,5 @@ img {
 }
 
 .checkin {
-  padding-top: 15px;
+  padding-top: 7px;
 }

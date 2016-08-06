@@ -193,8 +193,9 @@ class BasketballCheckInListView(CreateView):
         context["teams"] = BasketballTeam.objects.filter(pk__in=set(self.get_queryset().values_list("checkin_user__profile__basketball", flat=True)))
         context["users_pk"] = self.get_queryset().values_list("checkin_user__pk", flat=True)
         context["location"] = Location.objects.get(id=location)
-        context["debates"] = Debate.objects.get(debate_location_id=location)
+        context["debates"] = Debate.objects.filter(debate_location_id=location)
         context["object_list"] = self.get_queryset()
+        return context
 
     def get_queryset(self):
         location = self.kwargs.get('pk', None)

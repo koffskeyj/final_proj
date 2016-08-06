@@ -65,6 +65,9 @@ class Location(models.Model):
     location_zip = models.CharField(max_length=10, null=True, blank=True)
     geolocation = GeopositionField(null=True, blank=True)
 
+    class Meta:
+        ordering = ["location_name"]
+
     def __str__(self):
         return self.location_name
 

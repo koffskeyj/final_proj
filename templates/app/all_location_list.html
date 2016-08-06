@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+
 <style>
   #map-canvas {
     height: 300px;
@@ -16,8 +17,6 @@
             {% endfor %}
           -->
         <div id="map-canvas"></div>
-
-        <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
         <script>
             function initialize() {
                 var map = new google.maps.Map(document.getElementById('map-canvas'));
@@ -50,6 +49,7 @@
             }
             google.maps.event.addDomListener(window, 'load', initialize);
         </script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
       </div>
       <div id="places" class="col-md-6">
         <div class="center">
@@ -59,7 +59,7 @@
             </div>
             <ul class="list-group">
               {% for location in object_list %}
-              <li class="list-group-item"><a href="{% url 'football_checkin_list_view' location.pk %}"><h6>{{ location.location_name }} : {{ location.location_address }}</h6></a></li>
+              <li class="list-group-item"><a href="{% url 'football_checkin_list_view' location.pk %}?lat={{ location.location_address.0.lat }}&lng={{ location.location_address.1.lng }}&name={{ location.location_name }}&city={{ location.location_city }}&address={{ location.location_address }}"><h6>{{ location.location_name }} : {{ location.location_address }}</h6></a></li>
               {% endfor %}
             </ul>
           </div>

@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <body>
-  <h1>{{ user_count }} Fan(s)</h1>
-
-  {% for user in users %}
-    {{ user }}:
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h1>{{ user_count }} Fan(s)</h1>
+    </div>
     {% for checkin in object_list %}
-       {{ checkin.body }}
+    <ul class="list-group">
+      <li class="list-group-item">{{ checkin.checkin_user}}: {{ checkin.body }} <br></li>
+    </ul>
     {% endfor %}
-  {% endfor %}
-</body>
+    </div>
+  </body>
 {% endblock %}
