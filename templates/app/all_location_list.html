@@ -17,6 +17,7 @@
             {% endfor %}
           -->
         <div id="map-canvas"></div>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
         <script>
             function initialize() {
                 var map = new google.maps.Map(document.getElementById('map-canvas'));
@@ -49,7 +50,6 @@
             }
             google.maps.event.addDomListener(window, 'load', initialize);
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
       </div>
       <div id="places" class="col-md-6">
         <div class="center">
