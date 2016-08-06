@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
+{% load staticfiles %}
 <body id="chooseplace">
 <div class="checkin">
 <form class="" method="post">
   {% csrf_token %}
   <div class="center">
-    <img id="logo" src="/static/app/logo.png" alt="" />
+    <img id="logo" src="{% static 'app/logo.png' %}" alt="" />
   </div>
   <table align="center">
     <tr>
