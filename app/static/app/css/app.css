@@ -215,8 +215,8 @@ img {
 }
 
 .thumb {
-  height: 30px;
-  width: 30px;
+  height: 45px;
+  width: 45px;
 }
 
 #comments {
@@ -250,6 +250,7 @@ img {
 }
 
 .box {
+  padding: 10px;
   background: white;
   width: 425px;
   border: 1px solid black;
