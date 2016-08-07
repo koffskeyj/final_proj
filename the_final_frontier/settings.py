@@ -162,6 +162,16 @@ if aws_bucket:
 
     STATICFILES_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-    STATICFILES_LOCATION = '/static/'
+    STATICFILES_LOCATION = 'static'
+
+    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+
+    MEDIAFILES_LOCATION = 'media'
+
+    MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 LOGIN_REDIRECT_URL = '/'
