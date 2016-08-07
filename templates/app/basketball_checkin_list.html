@@ -55,8 +55,8 @@
     <div class="panel-body">
       <form class="" action="" method="post">
           {% csrf_token %}
-          {{form.as_p}}
-          <input class="button" type="submit" name="name" value="Submit">
+          {{debateform.as_p}}
+          <input class="button" type="submit" name="debateform" value="Submit">
         </form>
       </div>
     </div>
@@ -95,6 +95,12 @@
   <a href="{% url 'football_checkin_details_list_view' checkin.pk %}">{{ checkin.checkin_user.profile.football }}</a><br>
   {% endfor %}
 -->
+<br><br>
+<form class="" action="" method="post">
+  {% csrf_token %}
+  {{checkinform.as_p}}
+  <input class="button" type="submit" name="checkinform" value="Check In">
+</form>
 </div>
 </body>
 {% endblock %}

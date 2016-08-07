@@ -256,18 +256,11 @@ class CheckInFormView(FormView):
 class BasketballCheckInListView(CreateView):
     model = CheckIn
     form_class = DebateForm
+    second_form_class = CheckInForm
     template_name= "app/basketball_checkin_list.html"
     success_url = reverse_lazy("basketball_checkin_list_view")
     GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ["maps_key"]
 
-
-    def form_valid(self, form, **kwargs):
-        location = self.kwargs.get('pk', None)
-        debate_body = form.cleaned_data["body"].lower()
-        debate = form.save(commit=False)
-        debate.debate_user = self.request.user
-        debate.debate_location = Location.objects.get(id=location)
-        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         teams_list = []
@@ -281,12 +274,50 @@ class BasketballCheckInListView(CreateView):
         context["location"] = Location.objects.get(id=location)
         context["debates"] = Debate.objects.filter(debate_location_id=location)
         context["object_list"] = self.get_queryset()
+        context['debateform'] = self.form_class()
+        context['checkinform'] = self.second_form_class()
         context["key"] = GEOPOSITION_GOOGLE_MAPS_API_KEY
         return context
 
     def get_queryset(self):
         location = self.kwargs.get('pk', None)
         return CheckIn.objects.filter(checkin_location_id=location)
+
+    def post(self,request, *args, **kwargs):
+
+        if 'debateform' in request.POST:
+            form_class = self.get_form_class()
+            form_name = 'debateform'
+            location = self.kwargs.get('pk', None)
+            form = self.get_form(form_class)
+            debate = form.save(commit=False)
+            debate.debate_user = self.request.user
+            debate_body = form.cleaned_data["debate_body"].lower()
+            debate.debate_location = Location.objects.get(id=location)
+            if form.is_valid():
+                form.save()
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(**{form_name: form})
+
+        else:
+            form_class = self.second_form_class
+            form_name = 'checkinform'
+            location = self.kwargs.get('pk', None)
+            form = self.get_form(form_class)
+            checkin = form.save(commit=False)
+            checkin.checkin_user = self.request.user
+            checkin_body = form.cleaned_data["checkin_body"].lower()
+            checkin.checkin_location = Location.objects.get(id=location)
+            if form.is_valid():
+                form.save()
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(**{form_name: form})
+
+
+    def form_invalid(self, **kwargs):
+        return self.render_to_response(self.get_context_data(**kwargs))
 
 
 class FootballCheckInDetailsListView(ListView):
