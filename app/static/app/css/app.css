@@ -248,3 +248,9 @@ img {
 .checkin {
   padding-top: 7px;
 }
+
+.box {
+  background: white;
+  width: 425px;
+  border: 1px solid black;
+}
