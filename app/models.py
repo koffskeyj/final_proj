@@ -77,24 +77,30 @@ class CheckIn(models.Model):
     checkin_location = models.ForeignKey(Location)
     checkin_type = models.CharField(max_length=30, choices=SPORT_CHOICES, default=FOOTBALL)
     created = models.DateTimeField(auto_now_add=True)
-    body = models.TextField(max_length=50, null=True, blank=True)
+    checkin_body = models.TextField(max_length=50, null=True, blank=True)
 
 
 class Debate(models.Model):
-    debate_user = models.ForeignKey(User)
-    debate_location = models.ForeignKey(Location)
-    body = models.TextField(max_length=100, null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
+    debate_user = models.ForeignKey(User, null=True)
+    debate_location = models.ForeignKey(Location, null=True)
+    debate_body = models.TextField(max_length=100, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
 
     class Meta:
-        ordering = ["-created"]
+        ordering = ["created"]
 
 
 class DebateForm(ModelForm):
 
     class Meta:
         model = Debate
-        fields = ["body"]
+        fields = ["debate_body"]
+
+class CheckInForm(ModelForm):
+
+    class Meta:
+        model = CheckIn
+        fields = ["checkin_body", "checkin_type"]
 
 
 @receiver(post_save, sender="auth.User")

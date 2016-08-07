@@ -47,23 +47,27 @@
       </div>
     </div>
   </div>
+  {% if request.user.id in users_pk %}
   <div id="comments" class="panel panel-default">
     <div class="panel-heading">
       <h3>Comment</h3>
     </div>
     <div class="panel-body">
-      <form class="" action="" method="post">
+      <form class="" method="post">
         {% csrf_token %}
-        {{form.as_p}}
-        <input class="button" type="submit" value="Submit">
+        {{ form.as_p }}
+        <input class="button" type="submit" name="debateform" value="Submit">
       </form>
     </div>
     </div>
+    {% endif %}
+    {% if debates %}
     <div class="box">
     {% for debate in debates %}
-      <img class="thumb" src="{{ debate.debate_user.profile.photo_url }}" alt="" /> {{ debate.debate_user }} <br> &nbsp {{ debate.body}}<br><br>
+      <img class="thumb" src="{{ debate.debate_user.profile.photo_url }}" alt="" /> {{ debate.debate_user }} <br> &nbsp {{ debate.debate_body}}<br><br>
     {% endfor %}
     </div>
+    {% endif %}
   </div>
 
 
@@ -93,6 +97,12 @@
   <a href="{% url 'football_checkin_details_list_view' checkin.pk %}">{{ checkin.checkin_user.profile.football }}</a><br>
   {% endfor %}
 -->
+<br><br>
+<form class="" action="" method="post">
+  {% csrf_token %}
+  {{checkinform.as_p}}
+  <input class="button" type="submit" name="checkinform" value="Check In">
+</form>
 </div>
 </body>
 {% endblock %}
