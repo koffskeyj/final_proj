@@ -154,24 +154,24 @@ AWS_SECRET_ACCESS_KEY = aws_secret_key
 
 AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(aws_bucket)
 
-if aws_bucket:
+#if aws_bucket:
 
-    AWS_S3_FILE_OVERWRITE = False
+    #AWS_S3_FILE_OVERWRITE = False
 
-    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    #STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-    STATICFILES_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    #STATICFILES_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-    STATICFILES_LOCATION = 'static'
+    #STATICFILES_LOCATION = 'static'
 
-    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+    #STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 
-    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    #STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 
-    MEDIAFILES_LOCATION = 'media'
+    #MEDIAFILES_LOCATION = 'media'
 
-    MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+    #MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 
-    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    #DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 LOGIN_REDIRECT_URL = '/'

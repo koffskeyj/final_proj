@@ -40,7 +40,6 @@
       }
       google.maps.event.addDomListener(window, 'load', initialize);
   </script>
-  <br>
   <div class="center-column">
     <div id="address" class="panel panel-default">
       <div class="panel-body">
@@ -48,27 +47,31 @@
       </div>
     </div>
   </div>
+  {% if request.user.id in users_pk %}
   <div id="comments" class="panel panel-default">
     <div class="panel-heading">
       <h3>Comment</h3>
     </div>
+    <div class="center">
     <div class="panel-body">
-      <form class="" action="" method="post">
-          {% csrf_token %}
-          {{debateform.as_p}}
-          <input class="button" type="submit" name="debateform" value="Submit">
-        </form>
-      </div>
+      <form class="" method="post">
+        {% csrf_token %}
+        {{ form.debate_body }}
+        <input class="button" type="submit" name="debateform" value="Submit">
+      </form>
     </div>
-    {% for debate in debates %}
-    {% if debate|length > 0 %}
-    <ul class="list-group">
+    </div>
+    </div>
     {% endif %}
-      <li id="debates" class="list-group-item"><img class="thumb" src="{{ debate.debate_user.profile.photo_url }}" alt="" /> {{ debate.debate_user }}: </h3>
-          {{ debate.debate_body}} <br><br></li>
-    </ul>
+    {% if debates %}
+    <div class="box">
+    {% for debate in debates %}
+      <img class="thumb" src="{{ debate.debate_user.profile.photo_url }}" alt="" /> {{ debate.debate_user }} <br> &nbsp {{ debate.debate_body}}<br><br>
     {% endfor %}
     </div>
+    {% endif %}
+</div>
+
 
 <div class="col-md-6">
   <div class="center">
@@ -78,9 +81,10 @@
       </div>
       <ul class="list-group">
       {% for team in teams %}
-      <li class="list-group-item"><a href="{% url 'basketball_checkin_details_list_view' location.pk %}?team={{ team.school }}"><h6>{{ team.school }}</h6></a></li>
+      <li id="nobottom" class="list-group-item"><a href="{% url 'football_checkin_details_list_view' location.pk %}?team={{ team.school }}"><h6>{{ team.school }}</h6></a></li>
       {% endfor %}
       </ul>
+  </div>
 </div>
 <!--
       {% for profile in team.profile_set.all %}
@@ -96,10 +100,13 @@
   {% endfor %}
 -->
 <br><br>
+<div class="center">
 <form class="" action="" method="post">
   {% csrf_token %}
-  {{checkinform.as_p}}
+  {{ checkinform.checkin_body }} <br><br>
+  {{ checkinform.checkin_type }} <br><br>
   <input class="button" type="submit" name="checkinform" value="Check In">
+  </div>
 </form>
 </div>
 </body>

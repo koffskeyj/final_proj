@@ -69,7 +69,7 @@ def get_places_view(request):
 
 class CheckInCreateView(LoginRequiredMixin, CreateView):
     model = CheckIn
-    fields = ["checkin_type", "body"]
+    fields = ["checkin_type", "checkin_body"]
     success_url = "/"
 
     def get_context_data(self, **kwargs):

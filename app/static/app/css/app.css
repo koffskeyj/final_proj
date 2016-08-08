@@ -86,6 +86,10 @@ html, body {
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.42);
 }
 
+.box {
+  border-radius: 5px;
+}
+
 .map {
   width: 600px;
   height: 600px;
@@ -93,6 +97,10 @@ html, body {
 
 .center {
   text-align: center;
+}
+
+.right {
+  text-align: right;
 }
 
 #id_location_name {

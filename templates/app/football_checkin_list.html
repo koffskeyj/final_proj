@@ -52,12 +52,14 @@
     <div class="panel-heading">
       <h3>Comment</h3>
     </div>
+    <div class="center">
     <div class="panel-body">
       <form class="" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.debate_body }}
         <input class="button" type="submit" name="debateform" value="Submit">
       </form>
+    </div>
     </div>
     </div>
     {% endif %}
@@ -68,7 +70,7 @@
     {% endfor %}
     </div>
     {% endif %}
-  </div>
+</div>
 
 
 <div class="col-md-6">
@@ -98,10 +100,14 @@
   {% endfor %}
 -->
 <br><br>
+<div class="center">
+  <h3>Check In</h3>
 <form class="" action="" method="post">
   {% csrf_token %}
-  {{checkinform.as_p}}
+  {{ checkinform.checkin_body }} <br><br>
+  {{ checkinform.checkin_type }} <br><br>
   <input class="button" type="submit" name="checkinform" value="Check In">
+  </div>
 </form>
 </div>
 </body>
