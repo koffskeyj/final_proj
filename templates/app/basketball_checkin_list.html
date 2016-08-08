@@ -66,7 +66,7 @@
     {% if debates %}
     <div class="box">
     {% for debate in debates %}
-      <img class="thumb" src="{{ debate.debate_user.profile.photo_url }}" alt="" /> {{ debate.debate_user }} <br> &nbsp {{ debate.debate_body}}<br><br>
+      <img class="thumb" src="{{ debate.debate_user.profile.photo_url }}" alt="" /> {{ debate.debate_user }} <br> &nbsp {{ debate.debate_body}}<br>
     {% endfor %}
     </div>
     {% endif %}
