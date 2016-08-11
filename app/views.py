@@ -130,9 +130,8 @@ class FootballLocationListView(LoginRequiredMixin, ListView):
         mascot = self.request.user.profile.football.name
         context = super().get_context_data(**kwargs)
         context["key"] = GEOPOSITION_GOOGLE_MAPS_API_KEY
-        result = ""
-        result = re.sub('[()]', '', result)
-        url = "http://www.fbschedules.com/ncaa-17/2017-{}-{}-football-schedule.php".format(school, mascot).replace("'", "").replace(" ", "-").replace("'", "-").lower()
+        url = "http://www.fbschedules.com/ncaa-17/2017-{}-{}-football-schedule.php".format(school, mascot).replace("'", "").replace(" ", "-").lower()
+        url = re.sub('\(.+?\)', '', url).replace("--", "-")
         print(url)
         content = requests.get(url).text
         souper = BeautifulSoup(content, "html.parser")
