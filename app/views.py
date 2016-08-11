@@ -12,9 +12,11 @@ from googleplaces import GooglePlaces, types, lang
 from geoposition import Geoposition
 from datetime import datetime, timedelta
 from urllib.request import urlopen
+from bs4 import BeautifulSoup
 import json
 import requests
 import os
+import re
 YOUR_API_KEY = os.environ["places_key"]
 google_places = GooglePlaces(YOUR_API_KEY)
 ZIPCODE_API_KEY = os.environ["zipcodes_key"]
@@ -124,10 +126,17 @@ class FootballLocationListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         from geoposition import Geoposition
-
+        school = self.request.user.profile.football.school
+        mascot = self.request.user.profile.football.name
         context = super().get_context_data(**kwargs)
         context["key"] = GEOPOSITION_GOOGLE_MAPS_API_KEY
-
+        result = ""
+        result = re.sub('[()]', '', result)
+        url = "http://www.fbschedules.com/ncaa-17/2017-{}-{}-football-schedule.php".format(school, mascot).replace("'", "").replace(" ", "-").replace("'", "-").lower()
+        print(url)
+        content = requests.get(url).text
+        souper = BeautifulSoup(content, "html.parser")
+        context["schedule"] = str(souper.find(class_="cfb-sch"))
         return context
 
     def get_queryset(self):
@@ -185,11 +194,10 @@ class FootballCheckInListView(CreateView):
         context["location"] = Location.objects.get(id=location)
         context["debates"] = Debate.objects.filter(debate_location_id=location)
         context["object_list"] = self.get_queryset()
-        context["checkinform"] = CheckInForm(instance=locationid)
+        # context["checkinform"] = CheckInForm(instance=locationid)
         context['debateform'] = self.form_class()
         context['checkinform'] = self.second_form_class()
         context["key"] = GEOPOSITION_GOOGLE_MAPS_API_KEY
-        # hellooooooo
         return context
 
     def get_queryset(self):
@@ -197,7 +205,7 @@ class FootballCheckInListView(CreateView):
         return CheckIn.objects.filter(checkin_location_id=location)
 
 
-    def post(self,request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
 
         if 'debateform' in request.POST:
             form_class = self.get_form_class()

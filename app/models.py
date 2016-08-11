@@ -76,8 +76,8 @@ class CheckIn(models.Model):
     checkin_user = models.ForeignKey(User)
     checkin_location = models.ForeignKey(Location)
     checkin_type = models.CharField(max_length=30, choices=SPORT_CHOICES, default=FOOTBALL)
-    created = models.DateTimeField(auto_now_add=True)
     checkin_body = models.TextField(max_length=50, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class Debate(models.Model):
