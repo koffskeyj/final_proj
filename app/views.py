@@ -149,9 +149,9 @@ class FootballLocationListView(LoginRequiredMixin, ListView):
         for team in team_id:
             team_info = team_list.append(team["href"].split("/"))
         team_dict = {team[8]: team[7] for team in team_list}
-        for team in team_dict:
-            print(team)
-        format_user_team = user_team.lower().replace(" ", "-").replace("&", "%26").replace("é", "%C3%A9")
+        team_dict["miami-redhawks"] = team_dict.pop("miami-(oh)-redhawks")
+        print(team_dict)
+        format_user_team = user_team.lower().replace(" ", "-").replace("&", "%26").replace("é", "%C3%A9").replace("st.", "st")
         format_user_team = re.sub('\(.+?\)', '', format_user_team).replace("--", "-")
         url = "http://www.espn.com/college-football/teams/schedule?teamId={}".format(team_dict[format_user_team])
         url = re.sub('\(.+?\)', '', url).replace("--", "-")
@@ -189,7 +189,11 @@ class BasketballLocationListView(LoginRequiredMixin, ListView):
         for team in team_id:
             team_info = team_list.append(team["href"].split("/"))
         team_dict = {team[8]: team[7] for team in team_list}
-        format_user_team = user_team.lower().replace(" ", "-").replace("&", "%26").replace("é", "%C3%A9")
+        team_dict["miami-redhawks"] = team_dict.pop("miami-(oh)-redhawks")
+        team_dict["st-francis-terriers"] = team_dict.pop("st-francis-(bkn)-terriers")
+        team_dict["st-francis-red-flash"] = team_dict.pop("st-francis-(pa)-red-flash")
+        print(team_dict)
+        format_user_team = user_team.lower().replace(" ", "-").replace("&", "%26").replace("é", "%C3%A9").replace("st.", "st").replace("brooklyn", "")
         format_user_team = re.sub('\(.+?\)', '', format_user_team).replace("--", "-")
         url = "http://www.espn.com/mens-college-basketball/teams/schedule?teamId={}".format(team_dict[format_user_team])
         url = re.sub('\(.+?\)', '', url).replace("--", "-")
