@@ -131,7 +131,7 @@ class FootballLocationListView(LoginRequiredMixin, ListView):
         school = self.request.user.profile.football.school
         mascot = self.request.user.profile.football.name
         user_team = school + "-" + mascot
-        
+
         context = super().get_context_data(**kwargs)
         context["key"] = GEOPOSITION_GOOGLE_MAPS_API_KEY
         # url = "http://www.fbschedules.com/ncaa-16/2016-{}-{}-football-schedule.php".format(school, mascot).replace("'", "").replace(" ", "-").lower()
