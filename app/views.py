@@ -126,16 +126,38 @@ class FootballLocationListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         from geoposition import Geoposition
+        team_list = []
+        team_dict = {}
+        school = self.request.user.profile.football.school
+        mascot = self.request.user.profile.football.name
+        user_team = school + "-" + mascot
+
         school = self.request.user.profile.football.school
         mascot = self.request.user.profile.football.name
         context = super().get_context_data(**kwargs)
         context["key"] = GEOPOSITION_GOOGLE_MAPS_API_KEY
-        url = "http://www.fbschedules.com/ncaa-17/2017-{}-{}-football-schedule.php".format(school, mascot).replace("'", "").replace(" ", "-").lower()
-        url = re.sub('\(.+?\)', '', url).replace("--", "-")
-        print(url)
+        # url = "http://www.fbschedules.com/ncaa-16/2016-{}-{}-football-schedule.php".format(school, mascot).replace("'", "").replace(" ", "-").lower()
+        # url = re.sub('\(.+?\)', '', url).replace("--", "-")
+        # print(url)
+        # content = requests.get(url).text
+        # souper = BeautifulSoup(content, "html.parser")
+        # context["schedule"] = str(souper.find(class_="cfb-sch"))
+        url = "http://www.espn.com/college-football/teams"
         content = requests.get(url).text
         souper = BeautifulSoup(content, "html.parser")
-        context["schedule"] = str(souper.find(class_="cfb-sch"))
+        team_id = souper.find_all(class_="bi")
+        for team in team_id:
+            team_info = team_list.append(team["href"].split("/"))
+        team_dict = {team[8]: team[7] for team in team_list}
+        for team in team_dict:
+            print(team)
+        format_user_team = user_team.lower().replace(" ", "-").replace("&", "%26").replace("é", "%C3%A9")
+        format_user_team = re.sub('\(.+?\)', '', format_user_team).replace("--", "-")
+        url = "http://www.espn.com/college-football/teams/schedule?teamId={}".format(team_dict[format_user_team])
+        url = re.sub('\(.+?\)', '', url).replace("--", "-")
+        content = requests.get(url).text
+        souper = BeautifulSoup(content, "html.parser")
+        context["schedule"] = str(souper.find(class_="mod-content"))
         return context
 
     def get_queryset(self):
@@ -152,10 +174,31 @@ class BasketballLocationListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         from geoposition import Geoposition
+        team_list = []
+        team_dict = {}
+        school = self.request.user.profile.basketball.school
+        mascot = self.request.user.profile.basketball.name
+        user_team = school + "-" + mascot
 
         context = super().get_context_data(**kwargs)
         context["key"] = GEOPOSITION_GOOGLE_MAPS_API_KEY
-
+        url = "http://www.espn.com/mens-college-basketball/teams"
+        content = requests.get(url).text
+        souper = BeautifulSoup(content, "html.parser")
+        team_id = souper.find_all(class_="bi")
+        for team in team_id:
+            team_info = team_list.append(team["href"].split("/"))
+        team_dict = {team[8]: team[7] for team in team_list}
+        format_user_team = user_team.lower().replace(" ", "-").replace("&", "%26").replace("é", "%C3%A9")
+        format_user_team = re.sub('\(.+?\)', '', format_user_team).replace("--", "-")
+        url = "http://www.espn.com/mens-college-basketball/teams/schedule?teamId={}".format(team_dict[format_user_team])
+        url = re.sub('\(.+?\)', '', url).replace("--", "-")
+        content = requests.get(url).text
+        souper = BeautifulSoup(content, "html.parser")
+        context["schedule"] = str(souper.find(class_="mod-content"))
+            #team_dict = [dict([(team[7], team[8])])]
+            #team_list.append(team_info[7:9])
+            #team_dict= dict(zip(team_list[0], team_list[1]))
         return context
 
     def get_queryset(self):

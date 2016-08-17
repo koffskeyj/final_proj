@@ -50,6 +50,13 @@
             }
             google.maps.event.addDomListener(window, 'load', initialize);
         </script>
+        <br>
+        {% autoescape off %}
+        <div class="box">
+        {{ schedule }}
+        </div>
+        {% endautoescape %}
+        <br>
       </div>
       <div id="places" class="col-md-6">
         <div class="center">
