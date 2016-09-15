@@ -147,8 +147,8 @@ class FootballLocationListView(LoginRequiredMixin, ListView):
         for team in team_id:
             team_info = team_list.append(team["href"].split("/"))
         team_dict = {team[8]: team[7] for team in team_list}
-        # team_dict["miami-redhawks"] = team_dict.pop("miami-(oh)-redhawks")
-        # team_dict["loyola-ramblers"] = team_dict.pop("loyola-(chi)-ramblers")
+        team_dict["miami-(oh)-redhawks"] = team_dict.pop("miami-redhawks")
+        team_dict["loyola-(chi)-ramblers"] = team_dict.pop("loyola-ramblers")
         print(team_dict)
         format_user_team = user_team.lower().replace(" ", "-").replace("&", "%26").replace("é", "%C3%A9").replace("st.", "st")
         format_user_team = re.sub('\(.+?\)', '', format_user_team).replace("--", "-")
